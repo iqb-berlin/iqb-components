@@ -51,7 +51,6 @@ describe('BugReportService', () => {
 
         try {
 
-            // noinspection ExceptionCaughtLocallyJS
             throw new Error("intentionally thrown error");
 
         } catch (error) {
