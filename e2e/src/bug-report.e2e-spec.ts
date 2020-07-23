@@ -1,5 +1,5 @@
 import { ShowcasePage } from './showcase.po';
-import {browser, by, element, ExpectedConditions as EC} from 'protractor';
+import {browser, by, element, logging, ExpectedConditions as EC} from 'protractor';
 
 
 describe('Bug Report', () => {
@@ -58,7 +58,9 @@ describe('Bug Report', () => {
     });
 
     afterEach(async () => {
-        await browser.manage().logs().get('browser'); // clears the log!
+        const logs = await browser.manage().logs().get(logging.Type.BROWSER);
+        // 2 errors are expected because it can't find the dummy github repo
+        // and subsequently can't make the call
+        expect(logs.length).not.toBeGreaterThan(2);
     });
-
 });
