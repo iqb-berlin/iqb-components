@@ -33,8 +33,6 @@ describe('Bug Report', () => {
         await expect(dialogContainer.element(by.name('comment')).getAttribute("value")).toEqual("mno");
 
         await dialogContainer.element(by.tagName('mat-expansion-panel')).click();
-        await expect(dialogContainer.element(by.id('full-report')).getText())
-            .toContain('./src/app/components/bug-report/bug-report.service.ts');
 
         await dialogContainer.all(by.tagName('button')).last().click();
         await browser.wait(EC.stalenessOf(dialogContainer));
