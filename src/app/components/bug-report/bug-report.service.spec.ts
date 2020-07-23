@@ -1,5 +1,6 @@
 import {TestBed} from '@angular/core/testing';
 import {BugReportService} from './bug-report.service';
+import {BugReport} from './bug-report.interfaces';
 
 describe('BugReportService', () => {
 
@@ -26,8 +27,7 @@ describe('BugReportService', () => {
 
 
     it('create BugReport with now as default time', () =>  {
-
-        const bugReport = bugReportService.applyDefaults({
+        const bugReport: BugReport = bugReportService.applyDefaults({
             devInfo: "some error line"
         });
 
@@ -36,8 +36,7 @@ describe('BugReportService', () => {
 
 
     it('create BugReport with provided APP_VERSION and APP_NAME', () =>  {
-
-        const bugReport = bugReportService.applyDefaults({
+        const bugReport: BugReport = bugReportService.applyDefaults({
             devInfo: "some error line"
         });
 
@@ -48,7 +47,7 @@ describe('BugReportService', () => {
 
     it('should create a BugReport from thrown error', () =>  {
 
-        let bugReport;
+        let bugReport: BugReport;
 
         try {
 
