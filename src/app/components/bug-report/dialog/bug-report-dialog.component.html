@@ -1,0 +1,53 @@
+<div class="disabler" *ngIf="isSending"></div>
+
+<h1 mat-dialog-title>Fehler melden</h1>
+<mat-dialog-content>
+  <p>Es tut uns leid! Leider ist hier ein Fehler passiert. Helfen Sie uns, ihn in Zukunft zu vermeiden
+    und melden Sie ihn!</p>
+
+  <form>
+
+    <mat-form-field *ngIf="config.hideFields.indexOf('title') < 0">
+      <label>
+        <input matInput placeholder="Titel" [(ngModel)]="bugReport.title" name="title">
+      </label>
+    </mat-form-field>
+
+    <mat-form-field *ngIf="config.hideFields.indexOf('comment') < 0">
+      <label>
+        <textarea matInput placeholder="Fehlerbeschreibung" [(ngModel)]="bugReport.comment" name="comment" style="height:7em"></textarea>
+      </label>
+    </mat-form-field>
+
+    <mat-form-field *ngIf="config.hideFields.indexOf('reporterName') < 0">
+      <label>
+        <input matInput placeholder="Ihr Name (freiwillig)" [(ngModel)]="bugReport.reporterName" name="reporterName">
+      </label>
+    </mat-form-field>
+
+    <mat-form-field *ngIf="config.hideFields.indexOf('reporterEmail') < 0">
+      <label>
+        <input type="email" matInput placeholder="Ihre Email (freiwillig)" [(ngModel)]="bugReport.reporterEmail" name="reporterEmail">
+      </label>
+    </mat-form-field>
+
+  </form>
+
+  <mat-expansion-panel (opened)="fullReportPanelOpen = true" (closed)="fullReportPanelOpen = false" id="full-report">
+    <mat-expansion-panel-header>
+      <mat-panel-title>Vollständiger Fehlerbericht</mat-panel-title>
+      <mat-panel-description>wird gesendet an: <i>{{targetName}}</i></mat-panel-description>
+    </mat-expansion-panel-header>
+    <p>
+      <code>
+        {{getReportAsText()}}
+      </code>
+    </p>
+  </mat-expansion-panel>
+
+
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button *ngIf="bugReportService != null" mat-raised-button (click)="submitIssue()" color="primary" id="report-bug-send">Melden</button>
+  <button mat-raised-button mat-dialog-close id="report-bug-abort">Abbrechen</button>
+</mat-dialog-actions>

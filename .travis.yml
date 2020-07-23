@@ -16,7 +16,6 @@ install:
   - npm install
   - npm i --prefix=./node_modules/protractor --save webdriver-manager@latest
   - npx webdriver-manager update --versions.chrome=`google-chrome --product-version`
-  - cp src/environments/environment.prod.ts src/environments/environment.ts
   - cp e2e/travis.protractor.conf.js e2e/protractor.conf.js
 
 script:

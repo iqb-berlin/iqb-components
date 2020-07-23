@@ -4,10 +4,14 @@ import {
   ConfirmDialogComponent,
   CustomtextService,
   MessageDialogComponent,
-  ServerError
+  ServerError,
+  BugReportDialogComponent,
+  BugReportService,
+  GitHubService
 } from './components/iqb-components.module';
 import {Router} from '@angular/router';
 import {MatDialog} from '@angular/material/dialog';
+import {BugReport} from './components/bug-report/bug-report.interfaces';
 
 @Component({
   templateUrl: './showcase.component.html',
@@ -20,7 +24,9 @@ export class Showcase {
       public dialog: MatDialog,
       private scs: ShowcaseService,
       private router: Router,
-      public cts: CustomtextService
+      public cts: CustomtextService,
+      private gitHubService: GitHubService,
+      private bugReportService: BugReportService
   ) {}
 
   title = 'iqb-components';
@@ -43,6 +49,30 @@ export class Showcase {
 
   messageDialogResult: any;
 
+  bugReportDialogReport: BugReport = {
+    title: "error-title",
+    errorId: '#1337',
+    reporterName: 'paf',
+    devInfo: 'error in line 135',
+  };
+
+  bugReportDialogConfigHideFields = {
+    title: true,
+    comment: false,
+    reporterName: false,
+    reporterEmail: false
+  };
+
+  bugReportDialogCommentTemplate =
+    "## What have you done?\n\n" +
+    "## What should have happened?\n\n" +
+    "## Was happened instead?";
+
+  bugReportTargetKey = 'default';
+
+  bugReportDialogResult: any;
+
+
   pipeBytesValue = '1, 100, 10000, 100000, 1000000, 10000000, 100000000, 10000000000000000';
 
   httpErrorData = {
@@ -62,7 +92,9 @@ export class Showcase {
     ctv2: '',
   };
 
+
   openConfirmDialog(): void {
+
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       width: 'auto',
       data: Object.assign({}, this.confirmDialogData)
@@ -75,7 +107,7 @@ export class Showcase {
   }
 
   openMessageDialog(): void {
-    console.log(this.messageDialogData);
+
     const dialogRef = this.dialog.open(MessageDialogComponent, {
       width: 'auto',
       data: Object.assign({}, this.messageDialogData),
@@ -88,7 +120,48 @@ export class Showcase {
   }
 
 
+  openBugReportDialog(): void {
+
+    const config = {
+      hideFields: [],
+      commentTemplate: this.bugReportDialogCommentTemplate
+    }
+    Object.keys(this.bugReportDialogConfigHideFields).forEach((key: string) => {
+      if (this.bugReportDialogConfigHideFields[key]) config.hideFields.push(key);
+    });
+
+    const dialogRef = this.dialog.open(BugReportDialogComponent, {
+      data: {
+        report: this.bugReportDialogReport,
+        targetService: this.gitHubService,
+        targetKey: this.bugReportTargetKey,
+        config: config
+      },
+    });
+
+    dialogRef.afterClosed().subscribe(bugReportResult => {
+
+      this.bugReportDialogResult = bugReportResult ? bugReportResult.message : 'aborted';
+    });
+  }
+
+
+  convertJSErrorToBugReportDialogData(): void {
+
+    try {
+
+      // noinspection ExceptionCaughtLocallyJS
+      throw new Error("intentionally thrown error");
+
+    } catch (error) {
+
+      this.bugReportDialogReport = this.bugReportService.createFromJsError(error);
+    }
+  }
+
+
   applyPipeBytes() {
+
     return this.pipeBytesValue
         .split(',')
         .map(item => parseInt(item, 10));
@@ -96,6 +169,7 @@ export class Showcase {
 
 
   demoHttpError() {
+
     this.scs.checkError(
         this.httpErrorData.url,
         this.httpErrorData.parameterName,

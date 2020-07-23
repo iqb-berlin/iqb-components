@@ -68,9 +68,112 @@ export interface MessageDialogData {
 }
 ```
 
+### BugReport
+A set of services to easily create BugReports on GitHub (or, maybe in the future other targets). 
+
+#### Prerequisites:
+The BugReport-Component relies on some globally provided data:
+
+You shoudl store this data in your `environment.ts` and provide in `main.ts`: 
+```
+  {
+    provide: "APP_VERSION",
+    useValue: # program version of your app
+  },
+  {
+    provide: "APP_NAME",
+    useValue: # name of your app
+  },
+  {
+    provide: "GITHUB_DATA",
+    useValue: {
+      token: # gitHub-Authtoken 
+      user: # gitHub-Username,
+      repositoryUrls: {
+        'default': # url of your repository. Example: "https://github.com/iqb-berlin/non-existing-repo"
+      },
+    }
+  }
+```
+
+The **GitHub-Token** needs the following rights:
+- repo/public_repo
+- write:discussion
+
+You can create it here: https://github.com/settings.
+
+It's possible to provide more than the default-repository. The use case is if you have one repository for the frontend
+to report JS-bugs to and one for the backend to report Server-Errors to.
+
+#### Ho to use
+
+We recommend using this component on the error-page of your app. 
+
+##### a) Report a bug with the BugReportDialog
+You can let the user insert some stuff and confirm report before reporting.
+
+```lang-ts
+import {BugReportDialogComponent, GitHubService} from 'iqb-components';
+
+...
+
+const dialogRef = this.dialog.open(BugReportDialogComponent, {
+  data: {
+    report: BugReport,
+    targetService: this.gitHubService,
+    targetKey: String,
+    config: BugReportDialogConfig
+  },
+});
+
+dialogRef.afterClosed().subscribe(bugReportResult => {
+
+  ...
+});
+```
+
+As `MAT_DIALOG_DATA` you have to provide an object containing up to four elements. 
+It has to contain at least: 
+- the `BugReportTargetService` - only the `GitHubService` is available at the moment.
+
+You can also provide:
+ - a `BugReportDialogConfig` to change some parts of the dialog's appearance,
+ - a `BugReport` as basis,
+ - a string called `BugReportTargetKey`.
+ 
+With **BugReportConfig** you can hide some fields in the Dialog. An example use case is: In your app, you have a login
+and by this you allready have a username and email for your BugReport. So you provide both in the initial BugReport hide 
+those fields from the dialog and hide the corresponding fields with the config.
+
+The **BugReportTargetKey** must be the key of one of the repositories in `GITHUB_DATA`. If you don't have more than one 
+repository as target and the key is, as in the example above `default`, you don't have to worry about that.
+
+The **BugReport**-interface holds several optional fields of information which could be useful for the person receiving 
+the BugReport. No fields are required, which ones you use depend on your implementation and your needs. Most fields
+like `devInfo`, `date`, `url` get filled automatically if you leave them out or empty. only put those fields in the 
+initial BugReport in `MAT_DIALOG_DATA`, that you neither want the user to put in nor to get automatically.
+
+There is also a function `createFromJsError` in `BugReportService` to create a BugReport about a caught Javascript-Error.   
+
+See `bug-report.interfaces.ts` for details on the interfaces.
+
+##### Directly report a Bug without confirmation
+You can also directly report a Bug without using the Dialog:
+
+```lang-ts
+import {GitHubService} from 'iqb-components';
+
+...
+
+this.gitHubService.publishIssue(bugReport, targetKey)
+    .subscribe((bugReportResult: BugReportResult) => {
+        ...
+    });
+
+``` 
 
 
-## for developers
+## Information for developers
 
 ### Show Case App for Development
 

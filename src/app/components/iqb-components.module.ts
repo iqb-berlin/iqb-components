@@ -10,6 +10,13 @@ import { CustomTextData, CustomTextDefs } from './customtext/customtext.interfac
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {FormsModule} from '@angular/forms';
+import {MatInputModule} from '@angular/material/input';
+import {MatExpansionModule} from '@angular/material/expansion';
+import {GitHubService} from './bug-report/targets/github.service';
+import {BugReportService} from './bug-report/bug-report.service';
+import { BugReportDialogComponent } from './bug-report/dialog/bug-report-dialog.component';
 
 @NgModule({
   imports: [
@@ -17,22 +24,33 @@ import {MatButtonModule} from '@angular/material/button';
     MatDialogModule,
     MatIconModule,
     MatButtonModule,
+    MatFormFieldModule,
+    MatExpansionModule,
+    FormsModule,
+    MatInputModule
   ],
   entryComponents: [
     ConfirmDialogComponent,
-    MessageDialogComponent
+    MessageDialogComponent,
+    BugReportDialogComponent
   ],
   declarations: [
     ConfirmDialogComponent,
     MessageDialogComponent,
+    BugReportDialogComponent,
     BytesPipe,
-    CustomtextPipe
+    CustomtextPipe,
   ],
   exports: [
     ConfirmDialogComponent,
     MessageDialogComponent,
+    BugReportDialogComponent,
     BytesPipe,
-    CustomtextPipe
+    CustomtextPipe,
+  ],
+  providers: [
+    GitHubService,
+    BugReportService
   ]
 })
 export class IqbComponentsModule {
@@ -53,5 +71,18 @@ export class IqbComponentsModule {
   }
 
 }
-export {ConfirmDialogComponent, MessageDialogComponent, ServerError, ErrorHandler,
-  CustomTextData, CustomTextDefs, BytesPipe, CustomtextPipe, CustomtextService}; // IqbComponentsConfig
+
+export {
+  ConfirmDialogComponent,
+  MessageDialogComponent,
+  BugReportDialogComponent,
+  ServerError,
+  ErrorHandler,
+  CustomTextData,
+  CustomTextDefs,
+  BytesPipe,
+  CustomtextPipe,
+  CustomtextService,
+  BugReportService,
+  GitHubService
+}; // IqbComponentsConfig

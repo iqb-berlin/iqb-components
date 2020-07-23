@@ -39,7 +39,7 @@
     </mat-card-content>
 
     <mat-card-actions>
-      <button mat-raised-button (click)="openConfirmDialog()">Open Dialogue</button>
+      <button mat-raised-button color="primary" (click)="openConfirmDialog()" name="openDialog">Open Dialog</button>
     </mat-card-actions>
 
   </mat-card>
@@ -89,7 +89,80 @@
     </mat-card-content>
 
     <mat-card-actions>
-      <button mat-raised-button (click)="openMessageDialog()">Open Dialogue</button>
+      <button mat-raised-button color="primary" (click)="openMessageDialog()" name="openDialog">Open Dialogue</button>
+    </mat-card-actions>
+
+  </mat-card>
+
+  <mat-card id="bugReportDialog">
+    <mat-card-title>BugReport &amp; BugReportDialog</mat-card-title>
+    <mat-card-subtitle>A dialogue to report an error to GitHub</mat-card-subtitle>
+
+    <mat-card-content>
+
+      <form>
+
+        <p>Target</p>
+        <mat-select [(value)]="bugReportTargetKey" id="bugReportTargetKey">
+          <mat-option *ngFor="let item of gitHubService.targets | keyvalue" [value]="item.key">
+            {{item.key}} ({{item.value.owner}}/{{item.value.name}})
+          </mat-option>
+        </mat-select>
+
+        <p>BugReport-Data</p>
+        <mat-form-field>
+          <label>
+            <input matInput placeholder="Error-Title" [(ngModel)]="bugReportDialogReport.title" name="title">
+          </label>
+        </mat-form-field>
+        <mat-form-field>
+          <label>
+            <input matInput placeholder="Error-Code" [(ngModel)]="bugReportDialogReport.devInfo" name="devInfo">
+          </label>
+        </mat-form-field>
+
+        <mat-form-field>
+          <label>
+            <input matInput placeholder="Error-Id" [(ngModel)]="bugReportDialogReport.errorId" name="errorId">
+          </label>
+        </mat-form-field>
+
+        <mat-form-field>
+          <label>
+            <input matInput placeholder="Reporter-Name" [(ngModel)]="bugReportDialogReport.reporterName" name="reporterName">
+          </label>
+        </mat-form-field>
+
+        <mat-form-field>
+          <label>
+            <input matInput placeholder="Reporter-Email" [(ngModel)]="bugReportDialogReport.reporterEmail" name="reporterEmail">
+          </label>
+        </mat-form-field>
+
+        <br>
+
+        <p>Dialog-Config</p>
+        Hide fields:<br>
+        <label><input type="checkbox" [(ngModel)]="bugReportDialogConfigHideFields.title" name="hideTitle">title</label>
+        <label><input type="checkbox" [(ngModel)]="bugReportDialogConfigHideFields.comment" name="hideComment">comment</label>
+        <label><input type="checkbox" [(ngModel)]="bugReportDialogConfigHideFields.reporterName" name="hideReporterName">reporterName</label>
+        <label><input type="checkbox" [(ngModel)]="bugReportDialogConfigHideFields.reporterEmail" name="hideReporterEmail">reporterEmail</label>
+
+        <mat-form-field>
+          <label>
+            <textarea matInput placeholder="Comment-Template" [(ngModel)]="bugReportDialogCommentTemplate" name="commentTemplate"></textarea>
+          </label>
+        </mat-form-field>
+
+      </form>
+
+      <div class="result">Result: {{bugReportDialogResult}}</div>
+
+    </mat-card-content>
+
+    <mat-card-actions>
+      <button mat-raised-button (click)="convertJSErrorToBugReportDialogData()">Create report for JS error</button>
+      <button mat-raised-button color="primary" (click)="openBugReportDialog()" name="openDialog">Open Report Dialog</button>
     </mat-card-actions>
 
   </mat-card>
@@ -161,7 +234,7 @@
     </mat-card-content>
 
     <mat-card-actions>
-      <button mat-raised-button (click)="demoHttpError()">Execute</button>
+      <button color="primary" mat-raised-button (click)="demoHttpError()">Execute</button>
     </mat-card-actions>
 
   </mat-card>
@@ -202,7 +275,7 @@
 
     <mat-card-actions>
       <button mat-raised-button (click)="applyCustomTexts()">Apply settings</button>
-      <button mat-raised-button (click)="goToLazy()">Go to lazy loaded module</button>
+      <button color="primary" mat-raised-button (click)="goToLazy()">Go to lazy loaded module</button>
     </mat-card-actions>
 
   </mat-card>
