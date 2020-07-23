@@ -23,10 +23,7 @@ platformBrowserDynamic([
     useValue: {
       token: environment.gitHubToken,
       user: environment.gitHubUser,
-      repositoryUrls: {
-        'default': repository.url,
-        'dummy': "https://github.com/iqb-berlin/non-existing-repo",
-      },
+      repositoryUrls: environment.gitHubRepositories
     }
   }
 ]).bootstrapModule(AppModule)

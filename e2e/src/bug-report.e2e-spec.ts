@@ -1,5 +1,5 @@
 import { ShowcasePage } from './showcase.po';
-import {browser, by, element, ExpectedConditions as EC} from 'protractor';
+import {browser, by, element, logging, ExpectedConditions as EC} from 'protractor';
 
 
 describe('Bug Report', () => {
@@ -12,7 +12,6 @@ describe('Bug Report', () => {
     const containerCard = element(by.id('bugReportDialog'));
 
     it('dialog should pop up and set values and config according to setup.', async () => {
-
         await ShowcasePage.navigateTo();
 
         await ShowcasePage.typeIn(containerCard, 'title', 'abc');
@@ -23,31 +22,27 @@ describe('Bug Report', () => {
         await element(by.name('hideReporterEmail')).click();
         await ShowcasePage.typeIn(containerCard, 'commentTemplate', 'mno');
 
-        let dialog = await ShowcasePage.openDialog(containerCard);
+        let dialogContainer = await ShowcasePage.openDialog(containerCard);
 
-        await expect(dialog.element(by.name('title')).isPresent()).toBeTruthy()
-        await expect(dialog.element(by.name('comment')).isPresent()).toBeTruthy();
-        await expect(dialog.element(by.name('reporterName')).isPresent()).toBeTruthy();
-        await expect(dialog.element(by.name('reporterEmail')).isPresent()).toBeFalsy();
-        await expect(dialog.element(by.name('title')).getAttribute("value")).toEqual("abc");
-        await expect(dialog.element(by.name('reporterName')).getAttribute("value")).toEqual("ghi");
-        await expect(dialog.element(by.name('comment')).getAttribute("value")).toEqual("mno");
+        await expect(dialogContainer.element(by.name('title')).isPresent()).toBeTruthy()
+        await expect(dialogContainer.element(by.name('comment')).isPresent()).toBeTruthy();
+        await expect(dialogContainer.element(by.name('reporterName')).isPresent()).toBeTruthy();
+        await expect(dialogContainer.element(by.name('reporterEmail')).isPresent()).toBeFalsy();
+        await expect(dialogContainer.element(by.name('title')).getAttribute("value")).toEqual("abc");
+        await expect(dialogContainer.element(by.name('reporterName')).getAttribute("value")).toEqual("ghi");
+        await expect(dialogContainer.element(by.name('comment')).getAttribute("value")).toEqual("mno");
 
-        await dialog.element(by.tagName('mat-expansion-panel')).click();
-        await expect(dialog.element(by.id('full-report')).getText())
-            .toContain('./src/app/components/bug-report/bug-report.service.ts');
+        await dialogContainer.element(by.tagName('mat-expansion-panel')).click();
 
-        await dialog.all(by.tagName('button')).last().click();
-        await browser.wait(EC.stalenessOf(dialog));
+        await dialogContainer.all(by.tagName('button')).last().click();
+        await browser.wait(EC.stalenessOf(dialogContainer));
     });
 
 
-    it('dialog should return error, if can not send BugReport to target.', async () => {
-
+    it('dialog should return error, if it can not send BugReport to target.', async () => {
         await ShowcasePage.navigateTo();
 
         await ShowcasePage.selectFromMatSelect(element(by.id("bugReportTargetKey")), 'dummy')
-
         const dialogContainer = await ShowcasePage.openDialog(containerCard);
 
         await dialogContainer.element(by.id('report-bug-send')).click();
@@ -63,7 +58,9 @@ describe('Bug Report', () => {
     });
 
     afterEach(async () => {
-        await browser.manage().logs().get('browser'); // clears the log!
+        const logs = await browser.manage().logs().get(logging.Type.BROWSER);
+        // 2 errors are expected because it can't find the dummy github repo
+        // and subsequently can't make the call
+        expect(logs.length).not.toBeGreaterThan(2);
     });
-
 });
