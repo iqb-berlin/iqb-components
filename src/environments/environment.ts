@@ -8,6 +8,6 @@ export const environment = {
   gitHubToken: 'dummygithubtoken',
   gitHubUser: 'dummy',
   gitHubRepositories: {
-    "default": "https://github.com/iqb-berlin/non-existing-stuff"
+    "default": "https://github.com/iqb-berlin/non-existing-repo"
   },
 };

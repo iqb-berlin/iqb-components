@@ -42,7 +42,7 @@ describe('Bug Report', () => {
     it('dialog should return error, if it can not send BugReport to target.', async () => {
         await ShowcasePage.navigateTo();
 
-        await ShowcasePage.selectFromMatSelect(element(by.id("bugReportTargetKey")), 'dummy')
+        await ShowcasePage.selectFromMatSelect(element(by.id("bugReportTargetKey")), 'default')
         const dialogContainer = await ShowcasePage.openDialog(containerCard);
 
         await dialogContainer.element(by.id('report-bug-send')).click();
