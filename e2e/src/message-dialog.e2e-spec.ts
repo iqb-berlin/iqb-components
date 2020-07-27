@@ -1,48 +1,43 @@
+import {
+  browser, by, element, logging, ExpectedConditions as EC
+} from 'protractor';
 import { ShowcasePage } from './showcase.po';
-import { browser, by, element, logging, ExpectedConditions as EC } from 'protractor';
 
 describe('Message Dialog', () => {
-    let page: ShowcasePage;
+  it('should pop up and set buttons and labels according to setup.', async () => {
+    await ShowcasePage.navigateTo();
 
-    beforeEach(() => {
-        page = new ShowcasePage();
-    });
+    const containerCard = element(by.id('messageDialog'));
 
-    it('should pop up and set buttons and labels according to setup.', async () => {
-        await ShowcasePage.navigateTo();
+    await ShowcasePage.typeIn(containerCard, 'title', 'abc');
+    await ShowcasePage.typeIn(containerCard, 'content', 'def');
+    await ShowcasePage.typeIn(containerCard, 'closebuttonlabel', 'ghi');
+    await ShowcasePage.selectFromMatSelect(containerCard, 'info');
 
-        const containerCard = element(by.id('messageDialog'));
+    let dialogContainer = await ShowcasePage.openDialog(containerCard);
 
-        await ShowcasePage.typeIn(containerCard, 'title', 'abc');
-        await ShowcasePage.typeIn(containerCard, 'content', 'def');
-        await ShowcasePage.typeIn(containerCard, 'closebuttonlabel', 'ghi');
-        await ShowcasePage.selectFromMatSelect(containerCard, 'info');
+    await expect(dialogContainer.element(by.tagName('h1')).getText()).toContain('abc');
+    await expect(dialogContainer.element(by.tagName('mat-dialog-content')).getText()).toBe('def');
+    await expect(dialogContainer.element(by.tagName('button')).getText()).toBe('ghi');
+    await expect(dialogContainer.element(by.tagName('mat-icon')).getText()).toContain('info');
 
-        let dialogContainer = await ShowcasePage.openDialog(containerCard);
+    await dialogContainer.all(by.tagName('button')).last().click();
+    await browser.wait(EC.stalenessOf(dialogContainer));
 
-        await expect(dialogContainer.element(by.tagName('h1')).getText()).toContain('abc');
-        await expect(dialogContainer.element(by.tagName('mat-dialog-content')).getText()).toBe('def');
-        await expect(dialogContainer.element(by.tagName('button')).getText()).toBe('ghi');
-        await expect(dialogContainer.element(by.tagName('mat-icon')).getText()).toContain('info');
+    await ShowcasePage.typeIn(containerCard, 'title', '');
+    await ShowcasePage.selectFromMatSelect(containerCard, 'error');
 
-        await dialogContainer.all(by.tagName('button')).last().click();
-        await browser.wait(EC.stalenessOf(dialogContainer));
+    dialogContainer = await ShowcasePage.openDialog(containerCard);
 
-        await ShowcasePage.typeIn(containerCard, 'title', '');
-        await ShowcasePage.selectFromMatSelect(containerCard, 'error');
+    await expect(dialogContainer.element(by.tagName('h1')).getText()).toContain('Achtung: Fehler');
+    await expect(dialogContainer.element(by.tagName('mat-icon')).getText()).toContain('error');
+  });
 
-        dialogContainer = await ShowcasePage.openDialog(containerCard);
-
-        await expect(dialogContainer.element(by.tagName('h1')).getText()).toContain('Achtung: Fehler');
-        await expect(dialogContainer.element(by.tagName('mat-icon')).getText()).toContain('error');
-
-    });
-
-    afterEach(async () => {
-        // Assert that there are no errors emitted from the browser
-        const logs = await browser.manage().logs().get(logging.Type.BROWSER);
-        expect(logs).not.toContain(jasmine.objectContaining({
-            level: logging.Level.SEVERE,
-        } as logging.Entry));
-    });
+  afterEach(async () => {
+    // Assert that there are no errors emitted from the browser
+    const logs = await browser.manage().logs().get(logging.Type.BROWSER);
+    expect(logs).not.toContain(jasmine.objectContaining({
+      level: logging.Level.SEVERE
+    } as logging.Entry));
+  });
 });

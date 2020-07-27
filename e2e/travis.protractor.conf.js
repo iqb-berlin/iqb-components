@@ -6,13 +6,13 @@ const { SpecReporter } = require('jasmine-spec-reporter');
 exports.config = {
   allScriptsTimeout: 11000,
   specs: [
-    './src/**/*.e2e-spec.ts',
+    './src/**/*.e2e-spec.ts'
   ],
   capabilities: {
     browserName: 'chrome',
     chromeOptions: {
       args: [ "--headless" ]
-    },
+    }
   },
   directConnect: true,
   baseUrl: 'http://localhost:4207/', //with ng serve app run on port 4208, which is set up in angular.json. keep 4200 for use directly with protractor, like from IDE

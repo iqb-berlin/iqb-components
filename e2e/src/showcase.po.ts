@@ -1,18 +1,23 @@
-import {browser, by, element, ElementFinder, ExpectedConditions as EC} from 'protractor';
-import {protractor} from 'protractor/built/ptor';
+import {
+  browser, by, element, ExpectedConditions as EC
+} from 'protractor';
+import { protractor } from 'protractor/built/ptor';
 
-export class ShowcasePage {
-
-  static navigateTo(): Promise<void>  {
+export default class ShowcasePage {
+  static navigateTo(): Promise<void> {
     return browser.get(browser.baseUrl) as Promise<any>;
   }
 
-  static async getTitleText(): Promise<string> {
+  static async getTitleText(): Promise<string> { // TODO unused...
     return element(by.css('app-root h1')).getText();
   }
 
-  static async typeIn(container: ElementFinder, nameOfInput: string, content: string): Promise<ElementFinder> {
-    const elem = await container.element(by.css('[name="' + nameOfInput + '"]'));
+  static async typeIn(
+    container: ElementFinder,
+    nameOfInput: string,
+    content: string
+  ): Promise<ElementFinder> {
+    const elem = await container.element(by.css(`[name="${nameOfInput}"]`));
     // protractor bug. await elem.clear(); does not work, see https://github.com/angular/protractor/issues/301
     await elem.sendKeys(protractor.Key.chord(protractor.Key.CONTROL, 'a'));
     await elem.sendKeys(protractor.Key.BACK_SPACE);
