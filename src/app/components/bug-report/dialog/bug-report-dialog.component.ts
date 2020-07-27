@@ -15,7 +15,7 @@ import {BugReportService} from '../bug-report.service';
 })
 export class BugReportDialogComponent {
 
-  private bugReport: BugReport;
+  public bugReport: BugReport;
   private targetService: BugReportTargetService;
   private targetKey: string;
 
@@ -28,7 +28,7 @@ export class BugReportDialogComponent {
   constructor(
     @Inject(MAT_DIALOG_DATA) dialogData: BugReportDialogData,
     public dialogRef: MatDialogRef<BugReportDialogComponent>,
-    private bugReportService: BugReportService
+    public bugReportService: BugReportService
   ) {
 
       this.bugReport = this.bugReportService.applyDefaults(dialogData.report || {});
