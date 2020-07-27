@@ -1,6 +1,6 @@
 {
   "name": "iqb-components",
-  "version": "1.8.2",
+  "version": "1.8.0",
   "license": "MIT",
   "main": "iqb-components.module.ts",
   "ngPackage": {
