@@ -1,5 +1,5 @@
 import {
-  browser, by, element, ExpectedConditions as EC
+  browser, by, element, ElementFinder, ExpectedConditions as EC
 } from 'protractor';
 import { protractor } from 'protractor/built/ptor';
 
