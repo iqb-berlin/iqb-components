@@ -1,7 +1,7 @@
 import {
   browser, by, element, logging, ExpectedConditions as EC
 } from 'protractor';
-import { ShowcasePage } from './showcase.po';
+import ShowcasePage from './showcase.po';
 
 describe('Bug Report', () => {
   const containerCard = element(by.id('bugReportDialog'));

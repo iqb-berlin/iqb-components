@@ -1,7 +1,7 @@
 import {
   browser, by, element, logging
 } from 'protractor';
-import { ShowcasePage } from './showcase.po';
+import ShowcasePage from './showcase.po';
 
 describe('Bytes Pipe', () => {
   it('should calculate human readable bytes successfully', async () => {

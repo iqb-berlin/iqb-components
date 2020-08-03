@@ -1,7 +1,7 @@
 import {
   browser, by, element, logging, ExpectedConditions as EC
 } from 'protractor';
-import { ShowcasePage } from './showcase.po';
+import ShowcasePage from './showcase.po';
 
 describe('Message Dialog', () => {
   it('should pop up and set buttons and labels according to setup.', async () => {
