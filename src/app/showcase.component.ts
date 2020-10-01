@@ -17,7 +17,7 @@ import {BugReport} from './components/bug-report/bug-report.interfaces';
   templateUrl: './showcase.component.html',
   styleUrls: ['./showcase.component.scss']
 })
-// tslint:disable-next-line:component-class-suffix
+
 export class Showcase {
 
   constructor(
