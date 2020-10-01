@@ -1,5 +1,12 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { FormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { ConfirmDialogComponent } from './dialogs/confirm/confirm-dialog.component';
 import { MessageDialogComponent } from './dialogs/message/message-dialog.component';
 import { BytesPipe } from './pipes/bytes.pipe';
@@ -7,15 +14,8 @@ import { CustomtextPipe } from './customtext/customtext.pipe';
 import { CustomtextService } from './customtext/customtext.service';
 import { ErrorHandler, IqbComponentsConfig, ServerError } from './iqb-components.classes';
 import { CustomTextData, CustomTextDefs } from './customtext/customtext.interfaces';
-import {MatDialogModule} from '@angular/material/dialog';
-import {MatIconModule} from '@angular/material/icon';
-import {MatButtonModule} from '@angular/material/button';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {FormsModule} from '@angular/forms';
-import {MatInputModule} from '@angular/material/input';
-import {MatExpansionModule} from '@angular/material/expansion';
-import {GitHubService} from './bug-report/targets/github.service';
-import {BugReportService} from './bug-report/bug-report.service';
+import { GitHubService } from './bug-report/targets/github.service';
+import { BugReportService } from './bug-report/bug-report.service';
 import { BugReportDialogComponent } from './bug-report/dialog/bug-report-dialog.component';
 
 @NgModule({
@@ -39,14 +39,14 @@ import { BugReportDialogComponent } from './bug-report/dialog/bug-report-dialog.
     MessageDialogComponent,
     BugReportDialogComponent,
     BytesPipe,
-    CustomtextPipe,
+    CustomtextPipe
   ],
   exports: [
     ConfirmDialogComponent,
     MessageDialogComponent,
     BugReportDialogComponent,
     BytesPipe,
-    CustomtextPipe,
+    CustomtextPipe
   ],
   providers: [
     GitHubService,
@@ -59,7 +59,7 @@ export class IqbComponentsModule {
     return {
       ngModule: IqbComponentsModule,
       providers: [
-        {provide: IqbComponentsConfig}
+        { provide: IqbComponentsConfig }
       ]
     };
   }
@@ -69,7 +69,6 @@ export class IqbComponentsModule {
       ngModule: IqbComponentsModule
     };
   }
-
 }
 
 export {

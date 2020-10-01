@@ -1,33 +1,31 @@
-import {Inject, Injectable} from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import {BugReport, BugReportResult, BugReportTarget, BugReportTargetService} from '../bug-report.interfaces';
-import {BugReportService} from '../bug-report.service';
-
+import { BugReport, BugReportResult, BugReportTarget, BugReportTargetService } from '../bug-report.interfaces';
+import { BugReportService } from '../bug-report.service';
 
 export interface GitHubData {
-    repositoryUrls: {[key: string]: string},
-    user: string,
-    token: string
+  repositoryUrls: {[key: string]: string},
+  user: string,
+  token: string
 }
 
 export class GitHubRepository implements BugReportTarget {
-    owner: string;
-    name: string;
+  owner: string;
+  name: string;
 }
 
 @Injectable()
 export class GitHubService implements BugReportTargetService {
-
     private readonly user: string;
     private readonly token: string;
     public readonly targets: {[key: string]: GitHubRepository} = {};
 
     constructor(
-        @Inject('GITHUB_DATA') gitHubData: GitHubData,
-        private http: HttpClient,
-        private bugReportService: BugReportService
+      @Inject('GITHUB_DATA') gitHubData: GitHubData,
+      private http: HttpClient,
+      private bugReportService: BugReportService
     ) {
 
         this.user = gitHubData.user;
@@ -49,7 +47,6 @@ export class GitHubService implements BugReportTargetService {
 
 
     publishIssue(bugReport: BugReport, targetKey: string = 'default'): Observable<BugReportResult> {
-
         bugReport = this.bugReportService.applyDefaults(bugReport);
 
         const repository = this.targets[targetKey];
@@ -100,7 +97,6 @@ export class GitHubService implements BugReportTargetService {
     }
 
     getTargetName(targetKey: string = 'default'): string {
-
         const repository = this.targets[targetKey];
         if (typeof repository === "undefined") {
             return "http://github.com";

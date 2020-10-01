@@ -1,4 +1,4 @@
-import {MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Component, OnInit, Inject } from '@angular/core';
 
 export enum MessageType {
@@ -12,10 +12,9 @@ export enum MessageType {
   styleUrls: ['./message-dialog.component.css']
 })
 export class MessageDialogComponent implements OnInit {
-
   constructor(@Inject(MAT_DIALOG_DATA) public msgdata: MessageDialogData) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     if ((typeof this.msgdata.title === 'undefined') || (this.msgdata.title.length === 0)) {
       switch (this.msgdata.type) {
         case MessageType.error: {

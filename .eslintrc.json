@@ -4,7 +4,8 @@
         "es2021": true
     },
     "extends": [
-        "airbnb-typescript/base"
+        "airbnb-typescript/base",
+        "plugin:@typescript-eslint/recommended"
     ],
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
@@ -16,5 +17,7 @@
         "@typescript-eslint"
     ],
     "rules": {
+      "@typescript-eslint/comma-dangle": ["error", "never"],
+      "import/prefer-default-export": "off"
     }
 }

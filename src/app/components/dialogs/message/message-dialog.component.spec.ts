@@ -1,8 +1,8 @@
 import { TestBed } from '@angular/core/testing';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import { MessageDialogComponent } from './message-dialog.component';
-import {MAT_DIALOG_DATA} from "@angular/material/dialog";
 
 describe('MessageDialogComponent', () => {
   let fixture;
@@ -22,9 +22,9 @@ describe('MessageDialogComponent', () => {
             content: 'content',
             closebuttonlabel: 'close'
           }
-        },
+        }
       ],
-      schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
+      schemas: [CUSTOM_ELEMENTS_SCHEMA]
     }).compileComponents();
     fixture = TestBed.createComponent(MessageDialogComponent);
     component = fixture.debugElement.componentInstance;
@@ -35,11 +35,9 @@ describe('MessageDialogComponent', () => {
   });
 
   it('should take default properties for those which are omitted on #ngOnInit()', async () => {
-
     component.ngOnInit();
     expect(component.msgdata.title).toEqual('Achtung: Fehler');
     expect(component.msgdata.closebuttonlabel).toEqual('close');
     expect(component.msgdata.content).toEqual('content');
   });
-
 });

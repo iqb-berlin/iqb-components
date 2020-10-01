@@ -1,6 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import {MAT_DIALOG_DATA} from '@angular/material/dialog';
-
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'tc-confirm-dialog',
@@ -12,8 +11,7 @@ export class ConfirmDialogComponent implements OnInit {
 
   constructor(@Inject(MAT_DIALOG_DATA) public confirmdata: ConfirmDialogData) {}
 
-
-  ngOnInit() {
+  ngOnInit(): void {
     if ((typeof this.confirmdata.title === 'undefined') || (this.confirmdata.title.length === 0)) {
       this.confirmdata.title = 'Bitte bestätigen!';
     }
@@ -24,7 +22,6 @@ export class ConfirmDialogComponent implements OnInit {
       this.showcancel = false;
     }
   }
-
 }
 
 export interface ConfirmDialogData {

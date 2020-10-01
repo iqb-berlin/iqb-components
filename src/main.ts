@@ -11,15 +11,15 @@ if (environment.production) {
 
 platformBrowserDynamic([
   {
-    provide: "APP_VERSION",
+    provide: 'APP_VERSION',
     useValue: version
   },
   {
-    provide: "APP_NAME",
+    provide: 'APP_NAME',
     useValue: name
   },
   {
-    provide: "GITHUB_DATA",
+    provide: 'GITHUB_DATA',
     useValue: {
       token: environment.gitHubToken,
       user: environment.gitHubUser,
@@ -27,4 +27,4 @@ platformBrowserDynamic([
     }
   }
 ]).bootstrapModule(AppModule)
-  .catch(err => console.error(err));
+  .catch((err) => console.error(err));

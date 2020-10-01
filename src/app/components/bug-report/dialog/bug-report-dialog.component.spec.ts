@@ -1,25 +1,22 @@
 import { TestBed } from '@angular/core/testing';
-import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { MatDialogClose, MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { Observable, of } from 'rxjs';
 
 import { BugReportDialogComponent } from './bug-report-dialog.component';
-import {MatDialogClose, MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
-import {BugReportResult, BugReportTargetService} from '../bug-report.interfaces';
-import {Observable, of} from 'rxjs';
-import {BugReportService} from '../bug-report.service';
+import { BugReportResult, BugReportTargetService } from '../bug-report.interfaces';
+import { BugReportService } from '../bug-report.service';
 
 describe('BugReportDialogComponent', () => {
-
   let fixture;
   let dialogComponent: BugReportDialogComponent;
 
   class MockBugReportTargetService implements BugReportTargetService {
-
     getTargetName(targetKey: string): string {
       return 'target of: ' + targetKey;
     }
 
     publishIssue(): Observable<BugReportResult> {
-
       return of({
         success: true,
         message: "ok"
@@ -32,7 +29,6 @@ describe('BugReportDialogComponent', () => {
   }
 
   class MockMatDialogRef {
-
     private dialogOutcome: string;
 
     afterClosed() {
@@ -95,13 +91,11 @@ describe('BugReportDialogComponent', () => {
 
 
   it('should create a component', async () => {
-
     expect(dialogComponent).toBeTruthy();
   });
 
 
   it('should extract provided data correctly', async () => {
-
     expect(dialogComponent.targetName).toEqual('target of: a_key');
     expect(dialogComponent.config).toEqual({
       hideFields: ['title']
@@ -110,14 +104,12 @@ describe('BugReportDialogComponent', () => {
 
 
   it('should be able to convert bugreport to text', async () => {
-
     expect(dialogComponent.getReportAsText()).toEqual('bug report as text');
 
   });
 
 
   it('submit on button click', async () => {
-
     dialogComponent.submitIssue();
     dialogComponent.dialogRef.afterClosed().subscribe(result => {
       expect(result).toEqual({

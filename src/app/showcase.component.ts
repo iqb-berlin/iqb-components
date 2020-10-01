@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import {ShowcaseService} from './showcase.service';
+import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { ShowcaseService } from './showcase.service';
 import {
   ConfirmDialogComponent,
   CustomtextService,
@@ -9,9 +11,7 @@ import {
   BugReportService,
   GitHubService
 } from './components/iqb-components.module';
-import {Router} from '@angular/router';
-import {MatDialog} from '@angular/material/dialog';
-import {BugReport} from './components/bug-report/bug-report.interfaces';
+import { BugReport } from './components/bug-report/bug-report.interfaces';
 
 @Component({
   templateUrl: './showcase.component.html',
@@ -19,14 +19,13 @@ import {BugReport} from './components/bug-report/bug-report.interfaces';
 })
 
 export class Showcase {
-
   constructor(
-      public dialog: MatDialog,
-      private scs: ShowcaseService,
-      private router: Router,
-      public cts: CustomtextService,
-      private gitHubService: GitHubService,
-      private bugReportService: BugReportService
+    public dialog: MatDialog,
+    private scs: ShowcaseService,
+    private router: Router,
+    public cts: CustomtextService,
+    private gitHubService: GitHubService,
+    private bugReportService: BugReportService
   ) {}
 
   title = 'iqb-components';
@@ -35,7 +34,7 @@ export class Showcase {
     title: 'Please confirm',
     content: 'this action must be confirmed',
     confirmbuttonlabel: 'Yes, do it!',
-    showcancel: true,
+    showcancel: true
   };
 
   confirmDialogResult: any;
@@ -50,10 +49,10 @@ export class Showcase {
   messageDialogResult: any;
 
   bugReportDialogReport: BugReport = {
-    title: "error-title",
+    title: 'error-title',
     errorId: '#1337',
     reporterName: 'paf',
-    devInfo: 'error in line 135',
+    devInfo: 'error in line 135'
   };
 
   bugReportDialogConfigHideFields = {
@@ -63,15 +62,13 @@ export class Showcase {
     reporterEmail: false
   };
 
-  bugReportDialogCommentTemplate =
-    "## What have you done?\n\n" +
-    "## What should have happened?\n\n" +
-    "## Was happened instead?";
+  bugReportDialogCommentTemplate = '## What have you done?\n\n'
+                                 + '## What should have happened?\n\n'
+                                 + '## Was happened instead?';
 
   bugReportTargetKey = 'default';
 
   bugReportDialogResult: any;
-
 
   pipeBytesValue = '1, 100, 10000, 100000, 1000000, 10000000, 100000000, 10000000000000000';
 
@@ -89,43 +86,38 @@ export class Showcase {
 
   customTextValues = {
     ctv1: '',
-    ctv2: '',
+    ctv2: ''
   };
 
-
   openConfirmDialog(): void {
-
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       width: 'auto',
       data: Object.assign({}, this.confirmDialogData)
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       console.log('The dialog was closed with:', result);
       this.confirmDialogResult = result;
     });
   }
 
   openMessageDialog(): void {
-
     const dialogRef = this.dialog.open(MessageDialogComponent, {
       width: 'auto',
       data: Object.assign({}, this.messageDialogData),
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       console.log('The dialog was closed with:', result);
       this.confirmDialogResult = result;
     });
   }
 
-
   openBugReportDialog(): void {
-
     const config = {
       hideFields: [],
       commentTemplate: this.bugReportDialogCommentTemplate
-    }
+    };
     Object.keys(this.bugReportDialogConfigHideFields).forEach((key: string) => {
       if (this.bugReportDialogConfigHideFields[key]) config.hideFields.push(key);
     });
@@ -135,46 +127,35 @@ export class Showcase {
         report: this.bugReportDialogReport,
         targetService: this.gitHubService,
         targetKey: this.bugReportTargetKey,
-        config: config
-      },
+        config
+      }
     });
 
-    dialogRef.afterClosed().subscribe(bugReportResult => {
-
+    dialogRef.afterClosed().subscribe((bugReportResult) => {
       this.bugReportDialogResult = bugReportResult ? bugReportResult.message : 'aborted';
     });
   }
 
-
   convertJSErrorToBugReportDialogData(): void {
-
     try {
-
-      // noinspection ExceptionCaughtLocallyJS
-      throw new Error("intentionally thrown error");
-
+      throw new Error('intentionally thrown error');
     } catch (error) {
-
       this.bugReportDialogReport = this.bugReportService.createFromJsError(error);
     }
   }
 
-
-  applyPipeBytes() {
-
+  applyPipeBytes(): number[] {
     return this.pipeBytesValue
-        .split(',')
-        .map(item => parseInt(item, 10));
+      .split(',')
+      .map((item) => parseInt(item, 10));
   }
 
-
-  demoHttpError() {
-
+  demoHttpError(): void{
     this.scs.checkError(
-        this.httpErrorData.url,
-        this.httpErrorData.parameterName,
-        this.httpErrorData.parameterValue
-    ).subscribe(responseData => {
+      this.httpErrorData.url,
+      this.httpErrorData.parameterName,
+      this.httpErrorData.parameterValue
+    ).subscribe((responseData) => {
       if (responseData instanceof ServerError) {
         this.httpResponse.errorCode = (responseData as ServerError).code;
         this.httpResponse.messageShort = (responseData as ServerError).labelNice;
@@ -187,13 +168,14 @@ export class Showcase {
     });
   }
 
-  applyCustomTexts() {
+  applyCustomTexts(): void {
     const myCustomTexts: {[key: string]: string} = {};
     myCustomTexts.ctv1 = this.customTextValues.ctv1;
     myCustomTexts.ctv2 = this.customTextValues.ctv2;
     this.cts.addCustomTexts(myCustomTexts);
   }
-  goToLazy() {
+
+  goToLazy(): void {
     this.router.navigateByUrl('/lazy');
   }
 }

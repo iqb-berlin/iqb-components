@@ -1,6 +1,6 @@
 export interface CustomTextData {
-    defaultvalue: string;
-    description: string;
+  defaultvalue: string;
+  description: string;
 }
 
-export interface  CustomTextDefs {[key: string]: CustomTextData; }
+export interface CustomTextDefs {[key: string]: CustomTextData; }
