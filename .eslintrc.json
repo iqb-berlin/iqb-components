@@ -18,6 +18,7 @@
     ],
     "rules": {
       "@typescript-eslint/comma-dangle": ["error", "never"],
-      "import/prefer-default-export": "off"
+      "import/prefer-default-export": "off",
+      "import/no-extraneous-dependencies": ["error", {"devDependencies": true}]
     }
 }

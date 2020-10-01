@@ -12,12 +12,14 @@ exports.config = {
     browserName: 'chrome'
   },
   directConnect: true,
-  baseUrl: 'http://localhost:4207/', //with ng serve app run on port 4208, which is set up in angular.json. keep 4200 for use directly with protractor, like from IDE
+  // with ng serve app run on port 4208, which is set up in angular.json.
+  // keep 4200 for use directly with protractor, like from IDE
+  baseUrl: 'http://localhost:4207/',
   framework: 'jasmine',
   jasmineNodeOpts: {
     showColors: true,
     defaultTimeoutInterval: 90000,
-    print: function() {}
+    print() {}
   },
   SELENIUM_PROMISE_MANAGER: false, // we use native asyc/await instead https://github.com/angular/protractor/blob/master/docs/async-await.md
   onPrepare() {

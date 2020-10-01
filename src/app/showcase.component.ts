@@ -92,7 +92,7 @@ export class Showcase {
   openConfirmDialog(): void {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       width: 'auto',
-      data: Object.assign({}, this.confirmDialogData)
+      data: { ...this.confirmDialogData }
     });
 
     dialogRef.afterClosed().subscribe((result) => {
@@ -104,7 +104,7 @@ export class Showcase {
   openMessageDialog(): void {
     const dialogRef = this.dialog.open(MessageDialogComponent, {
       width: 'auto',
-      data: Object.assign({}, this.messageDialogData),
+      data: { ...this.messageDialogData }
     });
 
     dialogRef.afterClosed().subscribe((result) => {
