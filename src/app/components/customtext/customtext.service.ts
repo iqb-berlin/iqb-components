@@ -32,7 +32,7 @@ export class CustomtextService {
   // this function gets called the first time wehen Observable is not available, so we just return a Subscribable
   getCustomText(key: string): Subscribable<string> {
     if (typeof this.customTexts[key] === "undefined") {
-      this.customTexts[key] = new Subject<string>();
+      this.customTexts[key] = new BehaviorSubject<string>(null);
     }
     return this.customTexts[key];
   }

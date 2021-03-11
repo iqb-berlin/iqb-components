@@ -13,7 +13,7 @@ export class CustomtextPipe implements PipeTransform {
     return of('...')
       .pipe(
         switchMap(() => this.cts.getCustomText(key)),
-        defaultIfEmpty(defaultValue || key)
+        map(customText => (!customText ? (defaultValue || key) : customText))
       );
   }
 }
