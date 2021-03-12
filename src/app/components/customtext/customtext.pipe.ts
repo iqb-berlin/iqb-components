@@ -12,7 +12,7 @@ export class CustomtextPipe implements PipeTransform {
     let customText = this.cts.getCustomText(key, valueForChangeDetection);
     replacements
       .forEach(replacement => {
-        customText = customText.replace("%s", replacement);
+        customText = customText.replace('%s', replacement);
       });
     return customText;
   }

@@ -1,3 +1,4 @@
+/* eslint-disable import/export */
 export * from './iqb-components.module';
 export * from './dialogs/confirm/confirm-dialog.component';
 export * from './dialogs/message/message-dialog.component';
