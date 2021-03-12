@@ -1,7 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { Observable, of } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
 import { CustomtextService } from './customtext.service';
-import {Observable, of} from 'rxjs';
-import {defaultIfEmpty, map, switchMap} from 'rxjs/operators';
 
 @Pipe({
   name: 'customtext'
