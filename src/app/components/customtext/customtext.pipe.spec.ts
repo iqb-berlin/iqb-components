@@ -2,17 +2,20 @@ import { CustomtextPipe } from './customtext.pipe';
 import { CustomtextService } from './customtext.service';
 
 describe('CustomtextPipe', () => {
-  it('create an instance of CustomtextService, transform via pipe, get valid texts', () => {
+  fit('transforms texts correctly', () => {
     const cts = new CustomtextService();
     cts.addCustomTexts({
-      ctv1: 'Sosososo',
-      ctv2: 'Düdüdüdü',
-      ctv3: 'yoyoyoyo'
+      key1: 'value-1',
+      key2: 'value-2'
     });
     const pipe = new CustomtextPipe(cts);
-    expect(pipe.transform('any', 'ctv1')).toBe('Sosososo');
-    expect(pipe.transform('any', 'ctv2')).toBe('Düdüdüdü');
-    expect(pipe.transform('any', 'ctv3')).toBe('yoyoyoyo');
-    expect(pipe.transform('any', 'ctv4')).toBe('any');
+    pipe.transform('default value', 'key1')
+      .subscribe(displayedText => expect(displayedText).toEqual('value-1'));
+    pipe.transform('', 'key2')
+      .subscribe(displayedText => expect(displayedText).toEqual('value-2'));
+    pipe.transform('default value', 'unregistered_key')
+      .subscribe(displayedText => expect(displayedText).toEqual('default value'));
+    pipe.transform('', 'unregistered_key')
+      .subscribe(displayedText => expect(displayedText).toEqual('unregistered_key'));
   });
 });
