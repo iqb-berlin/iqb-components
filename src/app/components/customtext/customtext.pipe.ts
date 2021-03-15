@@ -7,7 +7,13 @@ import { CustomtextService } from './customtext.service';
 export class CustomtextPipe implements PipeTransform {
   constructor(private cts: CustomtextService) {}
 
-  transform(valueForChangeDetection: string, key: string, counter: number = 0): string {
-    return this.cts.getCustomText(key, valueForChangeDetection);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  transform(valueForChangeDetection: string, key: string, counter = 0, ...replacements: string[]): string {
+    let customText = this.cts.getCustomText(key, valueForChangeDetection);
+    replacements
+      .forEach(replacement => {
+        customText = customText.replace('%s', replacement);
+      });
+    return customText;
   }
 }
