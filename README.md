@@ -40,7 +40,7 @@ Use in templates `{{value | bytes}}`, you'll get (as examples):
 #### Dialogs
 These dialogs provide typical modal boxes to be presented to the user. They are angular material based
 so take care to import the modules `MatDialogModule, MatIconModule, MatButtonModule` in your application.
-Otherwise for example the positioning on page will fail. Please have a look at the parameters to
+Otherwise, for example the positioning on page will fail. Please have a look at the parameters to
 understand these components:
 
 ##### ConfirmDialogComponent
@@ -74,7 +74,7 @@ A set of services to easily create BugReports on GitHub (or, maybe in the future
 #### Prerequisites:
 The BugReport-Component relies on some globally provided data:
 
-You shoudl store this data in your `environment.ts` and provide in `main.ts`: 
+You should store this data in your `environment.ts` and provide in `main.ts`: 
 ```
   {
     provide: "APP_VERSION",
@@ -142,11 +142,11 @@ You can also provide:
  - a string called `BugReportTargetKey`.
  
 With **BugReportConfig** you can hide some fields in the Dialog. An example use case is: In your app, you have a login
-and by this you allready have a username and email for your BugReport. So you provide both in the initial BugReport hide 
+and by this you already have a username and email for your BugReport. So you provide both in the initial BugReport hide 
 those fields from the dialog and hide the corresponding fields with the config.
 
 The **BugReportTargetKey** must be the key of one of the repositories in `GITHUB_DATA`. If you don't have more than one 
-repository as target and the key is, as in the example above `default`, you don't have to worry about that.
+repository as target, and the key is, as in the example above `default`, you don't have to worry about that.
 
 The **BugReport**-interface holds several optional fields of information which could be useful for the person receiving 
 the BugReport. No fields are required, which ones you use depend on your implementation and your needs. Most fields
@@ -221,7 +221,7 @@ export CHROME_BIN=/bin/chromium #this is an example. you have to fill CHROME_BIN
 #### Minimum Requirements
 
 * node v8
-* chrome (tests are set up for for testing with chrome but could be done with firefox as well)
+* chrome (tests are set up for testing with Chrome but could be done with firefox as well)
 
 ### How to include a new component
 
@@ -235,7 +235,7 @@ export CHROME_BIN=/bin/chromium #this is an example. you have to fill CHROME_BIN
 * write unit test in same folder like component. You can use ... to auto-generate a skeleton for the unit test
 * write a e2e-test for your component in e2e/src
 
-#### publish new version of components lib
+#### publish a new version of components lib
 
 * change version tag both in `src/app/components/package.json` and `package.json` to new {version}
 * `npm run build:lib`
