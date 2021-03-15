@@ -29,12 +29,12 @@ describe('CustomtextPipe', () => {
     const pipe = new CustomtextPipe(cts);
     pipe.transform('default value', 'oneToken', '1st')
       .subscribe(displayedText => expect(displayedText).toEqual('Replace this: 1st'));
-    pipe.transform('default value', 'oneToken', '1st')
+    pipe.transform('default value', 'oneToken')
       .subscribe(displayedText => expect(displayedText).toEqual('Replace this: %s'));
     pipe.transform('default value', 'oneToken', '1st', '2nd')
-      .subscribe(displayedText => expect(displayedText).toEqual('Replace this: %1st'));
+      .subscribe(displayedText => expect(displayedText).toEqual('Replace this: 1st'));
     pipe.transform('default value', 'twoTokens', '1st')
-      .subscribe(displayedText => expect(displayedText).toEqual('Replace two things: %1st, %s'));
+      .subscribe(displayedText => expect(displayedText).toEqual('Replace two things: 1st, %s'));
     pipe.transform('default value', 'twoTokens')
       .subscribe(displayedText => expect(displayedText).toEqual('Replace two things: %s, %s'));
     pipe.transform('default value', 'twoTokens', '1st', '2nd')

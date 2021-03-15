@@ -12,7 +12,7 @@ export class CustomtextPipe implements PipeTransform {
   transform(defaultValue: string, key: string, ...replacements: string[]): Observable<string> {
     return of('...')
       .pipe(
-        switchMap(() => this.cts.getCustomText(key)),
+        switchMap(() => this.cts.getCustomText$(key)),
         map(customText => (!customText ? (defaultValue || key) : customText)),
         map(customText => {
           replacements

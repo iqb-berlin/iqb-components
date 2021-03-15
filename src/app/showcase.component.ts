@@ -10,7 +10,7 @@ import {
   BugReportDialogComponent,
   BugReportService,
   GitHubService
-} from './components/iqb-components.module';
+} from './components';
 import { BugReport } from './components/bug-report/bug-report.interfaces';
 
 @Component({
@@ -24,7 +24,7 @@ export class Showcase {
     private scs: ShowcaseService,
     private router: Router,
     public cts: CustomtextService,
-    private gitHubService: GitHubService,
+    public gitHubService: GitHubService,
     private bugReportService: BugReportService
   ) {}
 
@@ -62,9 +62,9 @@ export class Showcase {
     reporterEmail: false
   };
 
-  bugReportDialogCommentTemplate = '## What have you done?\n\n'
-                                 + '## What should have happened?\n\n'
-                                 + '## Was happened instead?';
+  bugReportDialogCommentTemplate = '## What have you done?\n\n' +
+                                   '## What should have happened?\n\n' +
+                                    '## Was happened instead?';
 
   bugReportTargetKey = 'default';
 
@@ -89,13 +89,15 @@ export class Showcase {
     ctv2: ''
   };
 
+  customtextFetchedWithCode = '[Hit "Fetch customtext with code" to see anything here]';
+
   openConfirmDialog(): void {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       width: 'auto',
       data: { ...this.confirmDialogData }
     });
 
-    dialogRef.afterClosed().subscribe((result) => {
+    dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed with:', result);
       this.confirmDialogResult = result;
     });
@@ -107,7 +109,7 @@ export class Showcase {
       data: { ...this.messageDialogData }
     });
 
-    dialogRef.afterClosed().subscribe((result) => {
+    dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed with:', result);
       this.confirmDialogResult = result;
     });
@@ -131,13 +133,14 @@ export class Showcase {
       }
     });
 
-    dialogRef.afterClosed().subscribe((bugReportResult) => {
+    dialogRef.afterClosed().subscribe(bugReportResult => {
       this.bugReportDialogResult = bugReportResult ? bugReportResult.message : 'aborted';
     });
   }
 
   convertJSErrorToBugReportDialogData(): void {
     try {
+      // noinspection ExceptionCaughtLocallyJS
       throw new Error('intentionally thrown error');
     } catch (error) {
       this.bugReportDialogReport = this.bugReportService.createFromJsError(error);
@@ -147,15 +150,15 @@ export class Showcase {
   applyPipeBytes(): number[] {
     return this.pipeBytesValue
       .split(',')
-      .map((item) => parseInt(item, 10));
+      .map(item => parseInt(item, 10));
   }
 
-  demoHttpError(): void{
+  demoHttpError(): void {
     this.scs.checkError(
       this.httpErrorData.url,
       this.httpErrorData.parameterName,
       this.httpErrorData.parameterValue
-    ).subscribe((responseData) => {
+    ).subscribe(responseData => {
       if (responseData instanceof ServerError) {
         this.httpResponse.errorCode = (responseData as ServerError).code;
         this.httpResponse.messageShort = (responseData as ServerError).labelNice;
@@ -169,7 +172,7 @@ export class Showcase {
   }
 
   applyCustomTexts(): void {
-    const myCustomTexts: {[key: string]: string} = {};
+    const myCustomTexts: { [key: string]: string } = {};
     myCustomTexts.ctv1 = this.customTextValues.ctv1;
     myCustomTexts.ctv2 = this.customTextValues.ctv2;
     this.cts.addCustomTexts(myCustomTexts);
@@ -177,5 +180,9 @@ export class Showcase {
 
   goToLazy(): void {
     this.router.navigateByUrl('/lazy');
+  }
+
+  fetchCustomTextWithCode(): void {
+    this.customtextFetchedWithCode = this.cts.getCustomText('ctv1');
   }
 }
