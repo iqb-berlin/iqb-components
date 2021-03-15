@@ -1,15 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 import { CustomtextService } from './customtext.service';
 
-
 describe('CustomtextService', () => {
-
   let customtextService: CustomtextService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
     customtextService = TestBed.get(CustomtextService);
-
   });
 
   it('returns for each key an observable, wich gets updated on every key-update', async () => {
@@ -31,24 +28,22 @@ describe('CustomtextService', () => {
       later_subscribed_key: 'value-2-init'
     });
 
-    await new Promise(resolve =>
-      setTimeout(() => {
-        customtextService.addCustomTexts({
-          key: 'value-1-1st-update',
-          later_subscribed_key: 'value-2-1st-update',
-          later_set_key: 'value-3-init'
-        });
-        resolve();
-      }, 1)
-    );
+    await new Promise(resolve => setTimeout(() => {
+      customtextService.addCustomTexts({
+        key: 'value-1-1st-update',
+        later_subscribed_key: 'value-2-1st-update',
+        later_set_key: 'value-3-init'
+      });
+      resolve();
+    }, 1));
 
     customtextService.getCustomText('later_subscribed_key')
       .subscribe(customText => receivedCustomTexts.later_subscribed_key.push(customText));
 
     customtextService.addCustomTextsFromDefs({
-      key: {defaultvalue: 'value-1-2nd-update', description: ''},
-      later_subscribed_key: {defaultvalue: 'value-2-2nd-update', description: ''},
-      later_set_key: {defaultvalue: 'value-3-1st-update', description: ''}
+      key: { defaultvalue: 'value-1-2nd-update', description: '' },
+      later_subscribed_key: { defaultvalue: 'value-2-2nd-update', description: '' },
+      later_set_key: { defaultvalue: 'value-3-1st-update', description: '' }
     });
 
     const expectedCustomTexts = {
@@ -56,7 +51,7 @@ describe('CustomtextService', () => {
       later_subscribed_key: ['value-2-2nd-update'],
       unknown_key: [null],
       later_set_key: [null, 'value-3-init', 'value-3-1st-update']
-    }
+    };
 
     expect(expectedCustomTexts).toEqual(receivedCustomTexts);
   });
