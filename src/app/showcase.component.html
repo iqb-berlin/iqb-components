@@ -265,10 +265,12 @@
       <div class="result">
         Piped via CustomText:
         <ul>
-          <li>Text 1 (from root component): {{'Text 1 default'| customtext:'ctv1':cts.updateCount}}</li>
-          <li>Text 2 (from root component): {{'Text 2 default'| customtext:'ctv2':cts.updateCount}}</li>
-          <li>Text 3 (from lazy component): {{'Text 3 default'| customtext:'ctv3':cts.updateCount}}</li>
-          <li>Text 4 (from lazy component): {{'Text 4 default'| customtext:'ctv4':cts.updateCount}}</li>
+          <li>Text 1 (from root component): {{'Text 1 default' | customtext:'ctv1' | async}}</li>
+          <li>Text 2 (from root component): {{'Text 2 default' | customtext:'ctv2' | async}}</li>
+          <li>Text 3 (from lazy component): {{'Text 3 default' | customtext:'ctv3' | async}}</li>
+          <li>Text 4 (from lazy component): {{'Text 4 default' | customtext:'ctv4' | async}}</li>
+          <li>No custom-text: {{'default' | customtext:'unset-key' | async}}</li>
+          <li>No custom-text and empty default: {{'' | customtext:'unset-key' | async}}</li>
         </ul>
       </div>
     </mat-card-content>

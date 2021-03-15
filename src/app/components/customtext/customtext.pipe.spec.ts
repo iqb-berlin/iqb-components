@@ -2,18 +2,21 @@ import { CustomtextPipe } from './customtext.pipe';
 import { CustomtextService } from './customtext.service';
 
 describe('CustomtextPipe', () => {
-  it('creates an instance of CustomtextService, transform via pipe, get valid texts', () => {
+  it('transforms texts correctly', () => {
     const cts = new CustomtextService();
     cts.addCustomTexts({
-      ctv1: 'Sosososo',
-      ctv2: 'Düdüdüdü',
-      ctv3: 'yoyoyoyo'
+      key1: 'value-1',
+      key2: 'value-2'
     });
     const pipe = new CustomtextPipe(cts);
-    expect(pipe.transform('any', 'ctv1')).toBe('Sosososo');
-    expect(pipe.transform('any', 'ctv2')).toBe('Düdüdüdü');
-    expect(pipe.transform('any', 'ctv3')).toBe('yoyoyoyo');
-    expect(pipe.transform('any', 'ctv4')).toBe('any');
+    pipe.transform('default value', 'key1')
+      .subscribe(displayedText => expect(displayedText).toEqual('value-1'));
+    pipe.transform('', 'key2')
+      .subscribe(displayedText => expect(displayedText).toEqual('value-2'));
+    pipe.transform('default value', 'unregistered_key')
+      .subscribe(displayedText => expect(displayedText).toEqual('default value'));
+    pipe.transform('', 'unregistered_key')
+      .subscribe(displayedText => expect(displayedText).toEqual('unregistered_key'));
   });
 
   it('uses replacement parameters correctly', () => {
@@ -24,17 +27,19 @@ describe('CustomtextPipe', () => {
       noToken: 'Replace nothing'
     });
     const pipe = new CustomtextPipe(cts);
-    expect(pipe.transform('any', 'oneToken', 0, '1st')).toBe('Replace this: 1st');
-    expect(pipe.transform('any', 'oneToken', 0)).toBe('Replace this: %s');
-    expect(pipe.transform('any', 'oneToken', 0, '1st', '2nd')).toBe('Replace this: 1st');
-    expect(pipe.transform('any', 'twoTokens', 0, '1st')).toBe('Replace two things: 1st, %s');
-    expect(pipe.transform('any', 'twoTokens', 0)).toBe('Replace two things: %s, %s');
-    expect(pipe.transform('any', 'twoTokens', 0, '1st', '2nd')).toBe('Replace two things: 1st, 2nd');
-    expect(pipe.transform('any', 'noToken', 0, '1st')).toBe('Replace nothing');
-
-    cts.addCustomTexts({
-      oneToken: 'Replace this after update: %s'
-    });
-    expect(pipe.transform('any', 'oneToken', 1, '1st')).toBe('Replace this after update: 1st');
+    pipe.transform('default value', 'oneToken', '1st')
+      .subscribe(displayedText => expect(displayedText).toEqual('Replace this: 1st'));
+    pipe.transform('default value', 'oneToken', '1st')
+      .subscribe(displayedText => expect(displayedText).toEqual('Replace this: %s'));
+    pipe.transform('default value', 'oneToken', '1st', '2nd')
+      .subscribe(displayedText => expect(displayedText).toEqual('Replace this: %1st'));
+    pipe.transform('default value', 'twoTokens', '1st')
+      .subscribe(displayedText => expect(displayedText).toEqual('Replace two things: %1st, %s'));
+    pipe.transform('default value', 'twoTokens')
+      .subscribe(displayedText => expect(displayedText).toEqual('Replace two things: %s, %s'));
+    pipe.transform('default value', 'twoTokens', '1st', '2nd')
+      .subscribe(displayedText => expect(displayedText).toEqual('Replace two things: 1st, 2nd'));
+    pipe.transform('default value', 'noToken', '1st')
+      .subscribe(displayedText => expect(displayedText).toEqual('Replace nothing'));
   });
 });

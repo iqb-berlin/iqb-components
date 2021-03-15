@@ -1,38 +1,58 @@
 import { TestBed } from '@angular/core/testing';
-
 import { CustomtextService } from './customtext.service';
 
 describe('CustomtextService', () => {
-  beforeEach(() => TestBed.configureTestingModule({}));
+  let customtextService: CustomtextService;
 
-  it('load and deliver correct text by key', () => {
-    const service: CustomtextService = TestBed.get(CustomtextService);
-    expect(service.updateCount).toBe(0);
-    service.addCustomTexts({
-      ctv1: 'Sosososo',
-      ctv2: 'Düdüdüdü',
-      ctv3: 'yoyoyoyo'
+  beforeEach(() => {
+    TestBed.configureTestingModule({});
+    customtextService = TestBed.get(CustomtextService);
+  });
+
+  it('returns for each key an observable, wich gets updated on every key-update', async () => {
+    const receivedCustomTexts = {
+      key: [],
+      later_subscribed_key: [],
+      unknown_key: [],
+      later_set_key: []
+    };
+    customtextService.getCustomText('key')
+      .subscribe(customText => receivedCustomTexts.key.push(customText));
+    customtextService.getCustomText('unknown_key')
+      .subscribe(customText => receivedCustomTexts.unknown_key.push(customText));
+    customtextService.getCustomText('later_set_key')
+      .subscribe(customText => receivedCustomTexts.later_set_key.push(customText));
+
+    customtextService.addCustomTexts({
+      key: 'value-1-init',
+      later_subscribed_key: 'value-2-init'
     });
-    expect(service.updateCount).toBe(1);
-    expect(service.getCustomText('ctv1', 'default_ctv1')).toBe('Sosososo');
-    expect(service.getCustomText('ctv2', 'default_ctv2')).toBe('Düdüdüdü');
-    expect(service.getCustomText('ctv3', 'default_ctv3')).toBe('yoyoyoyo');
-    expect(service.getCustomText('ctv11', 'default_ctv11')).toBe('default_ctv11');
-    expect(service.getCustomText('ctv11')).toBe('ctv11');
-    service.addCustomTexts({
-      ctv2: 'jajajajaja',
-      ctv11: 'meijomei'
+
+    await new Promise(resolve => setTimeout(() => {
+      customtextService.addCustomTexts({
+        key: 'value-1-1st-update',
+        later_subscribed_key: 'value-2-1st-update',
+        later_set_key: 'value-3-init'
+      });
+      resolve();
+    }, 1));
+
+    customtextService.getCustomText('later_subscribed_key')
+      .subscribe(customText => receivedCustomTexts.later_subscribed_key.push(customText));
+
+    customtextService.addCustomTextsFromDefs({
+      key: { defaultvalue: 'value-1-2nd-update', description: '' },
+      later_subscribed_key: { defaultvalue: 'value-2-2nd-update', description: '' },
+      later_set_key: { defaultvalue: 'value-3-1st-update', description: '' }
     });
-    expect(service.updateCount).toBe(2);
-    expect(service.getCustomText('ctv1', 'default_ctv1')).toBe('Sosososo');
-    expect(service.getCustomText('ctv2', 'default_ctv2')).toBe('jajajajaja');
-    expect(service.getCustomText('ctv3', 'default_ctv3')).toBe('yoyoyoyo');
-    expect(service.getCustomText('ctv11', 'default_ctv11')).toBe('meijomei');
-    service.addCustomTexts({
-      ctv11: ''
-    });
-    expect(service.updateCount).toBe(3);
-    expect(service.getCustomText('ctv11')).toBe('ctv11');
-    expect(service.getCustomText('ctv11', 'default_ctv11')).toBe('default_ctv11');
+
+    const expectedCustomTexts = {
+      key: [null, 'value-1-init', 'value-1-1st-update', 'value-1-2nd-update'],
+      later_subscribed_key: ['value-2-2nd-update'],
+      unknown_key: [null],
+      later_set_key: [null, 'value-3-init', 'value-3-1st-update']
+    };
+
+    expect(expectedCustomTexts).toEqual(receivedCustomTexts);
   });
 });
