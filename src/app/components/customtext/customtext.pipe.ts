@@ -7,7 +7,7 @@ import { CustomtextService } from './customtext.service';
 export class CustomtextPipe implements PipeTransform {
   constructor(private cts: CustomtextService) {}
 
-  transform(valueForChangeDetection: any, key: string, counter = 0): string {
+  transform(valueForChangeDetection: string, key: string, counter: number = 0): string {
     return this.cts.getCustomText(key, valueForChangeDetection);
   }
 }

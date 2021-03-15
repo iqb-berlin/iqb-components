@@ -1,17 +1,15 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-
-import { LazyTestingRoutingModule } from './lazy-testing-routing.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { IqbComponentsModule } from '../components/iqb-components.module';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
 import { LazyComponent } from './lazy.component';
-import {MatCardModule} from '@angular/material/card';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatIconModule} from '@angular/material/icon';
-import {MatInputModule} from '@angular/material/input';
-import {MatButtonModule} from '@angular/material/button';
-
+import { IqbComponentsModule } from '../components/iqb-components.module';
+import { LazyTestingRoutingModule } from './lazy-testing-routing.module';
 
 @NgModule({
   imports: [
@@ -24,15 +22,14 @@ import {MatButtonModule} from '@angular/material/button';
     LazyTestingRoutingModule,
     MatFormFieldModule,
     MatInputModule,
-    IqbComponentsModule.forChild(),
+    IqbComponentsModule.forChild()
   ],
   declarations: [
-      LazyComponent
+    LazyComponent
   ],
   exports: [
-      LazyComponent
+    LazyComponent
   ]
 
 })
-export class LazyTestingModule { }
-
+export class LazyTestingModule {}

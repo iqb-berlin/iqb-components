@@ -7,17 +7,17 @@ import { CustomTextDefs } from './customtext.interfaces';
 export class CustomtextService {
   public updateCount = 0;
 
-  private customTexts: {[key: string]: string} = {};
+  private customTexts: { [key: string]: string } = {};
 
-  addCustomTexts(newTexts: {[key: string]: string}): void {
-    Object.keys(newTexts).forEach((key) => {
+  addCustomTexts(newTexts: { [key: string]: string }): void {
+    Object.keys(newTexts).forEach(key => {
       this.customTexts[key] = newTexts[key];
     });
     this.updateCount += 1;
   }
 
   addCustomTextsFromDefs(newTexts: CustomTextDefs): void {
-    Object.keys(newTexts).forEach((key) => {
+    Object.keys(newTexts).forEach(key => {
       this.customTexts[key] = newTexts[key].defaultvalue;
     });
     this.updateCount += 1;

@@ -14,18 +14,18 @@ export class LazyComponent {
   };
 
   constructor(
-      private router: Router,
-      public cts: CustomtextService
+    private router: Router,
+    public cts: CustomtextService
   ) { }
 
-  applyCustomTexts() {
+  applyCustomTexts(): void {
     const myCustomTexts: {[key: string]: string} = {};
     myCustomTexts.ctv3 = this.customTextValues.ctv3;
     myCustomTexts.ctv4 = this.customTextValues.ctv4;
     this.cts.addCustomTexts(myCustomTexts);
   }
 
-  goBack() {
+  goBack(): void {
     this.router.navigateByUrl('/');
   }
 }

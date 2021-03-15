@@ -16,6 +16,12 @@
     "build:lib": "./node_modules/.bin/ng-packagr -p src/app/components/package.json"
   },
   "private": false,
+  "eslintConfig": {
+    "extends": "@iqb/eslint-config",
+    "parserOptions": {
+      "project": "./tsconfig.json"
+    }
+  },
   "dependencies": {
     "@angular/animations": "^9.0.7",
     "@angular/cdk": "^9.1.3",
@@ -46,14 +52,10 @@
     "@angular/cli": "^9.0.7",
     "@angular/compiler-cli": "^9.0.7",
     "@angular/language-service": "^9.0.7",
+    "@iqb/eslint-config": "0.0.8",
     "@types/jasmine": "~3.5.0",
     "@types/jasminewd2": "~2.0.8",
     "@types/node": "^12.11.1",
-    "@typescript-eslint/eslint-plugin": "^4.3.0",
-    "codelyzer": "^5.2.1",
-    "eslint": "^7.10.0",
-    "eslint-config-airbnb-typescript": "^11.0.0",
-    "eslint-plugin-import": "^2.22.1",
     "jasmine-core": "~3.5.0",
     "jasmine-spec-reporter": "~4.2.1",
     "karma": "^4.4.1",
