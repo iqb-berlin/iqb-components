@@ -1,0 +1,21 @@
+{
+  "name": "iqb-components",
+  "version": "2.0.0",
+  "license": "MIT",
+  "main": "iqb-components.module.ts",
+  "ngPackage": {
+    "lib": {
+      "entryFile": "public_api.ts"
+    },
+    "dest": "../../../dist"
+  },
+  "private": false,
+  "peerDependencies": {
+    "@angular/animations": "^9.0.7",
+    "@angular/common": "^9.0.7",
+    "@angular/core": "^9.0.7",
+    "@angular/material": "~9.1.3",
+    "core-js": "~3.6.4",
+    "material-design-icons": "~3.0.1"
+  }
+}

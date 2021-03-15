@@ -237,7 +237,7 @@ export CHROME_BIN=/bin/chromium #this is an example. you have to fill CHROME_BIN
 
 #### publish a new version of components lib
 
-* change version tag in `package.json` to new {version}
+* change version tag both in `src/app/components/package.json` and `package.json` to new {version}
 * `npm run build:lib`
 * `cp README.md dist/`
 * `npm login`
