@@ -1,6 +1,8 @@
-[![npm](https://img.shields.io/npm/v/iqb-components.svg?style=flat-square)](https://www.npmjs.com/package/iqb-components)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](LICENSE)
-[![Travis (.com)](https://img.shields.io/travis/com/iqb-berlin/iqb-components?style=flat-square)](https://travis-ci.com/iqb-berlin/iqb-components)
+[![npm](https://img.shields.io/npm/v/iqb-components.svg)](https://www.npmjs.com/package/iqb-components)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Travis (.com)](https://scm.cms.hu-berlin.de/iqb/iqb-components/badges/master/pipeline.svg)](https://scm.cms.hu-berlin.de/iqb/iqb-components)
+
+
 
 # IqbComponents
 
