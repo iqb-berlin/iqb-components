@@ -5,7 +5,8 @@ config.capabilities = {
   chromeOptions: {
     args: [
       '--headless',
-      '--user-data-dir=~/.config/google-chrome'
+      '--user-data-dir=~/.config/google-chrome',
+      '--profile-directory=Default'
     ]
   }
 };
