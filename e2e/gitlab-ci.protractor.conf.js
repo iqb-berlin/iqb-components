@@ -6,7 +6,8 @@ config.capabilities = {
     args: [
       '--headless',
       '--user-data-dir=~/.config/google-chrome',
-      '--profile-directory=Default'
+      '--profile-directory=Default',
+      '--no-sandbox'
     ]
   }
 };
