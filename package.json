@@ -12,7 +12,8 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e --no-webdriver-update",
+    "e2e": "ng e2e",
+    "e2e:ci": "protractor e2e/gitlab-ci.protractor.conf.js",
     "build:lib": "./node_modules/.bin/ng-packagr -p src/app/components/package.json"
   },
   "private": false,
