@@ -3,7 +3,10 @@ const { config } = require('./protractor.conf');
 config.capabilities = {
   browserName: 'chrome',
   chromeOptions: {
-    args: ['--headless']
+    args: [
+      '--headless',
+      '--user-data-dir=~/.config/google-chrome'
+    ]
   }
 };
 
