@@ -1,12 +1,13 @@
-const config = require('./karma.conf');
+const baseConfig = require('./karma.conf');
 
-config.customLaunchers = {
-  ChromeHeadlessNoSandbox: {
-    base: 'ChromeHeadless',
-    flags: ['--no-sandbox']
-  }
+module.exports = function (param) {
+  baseConfig(param).set({
+    customLaunchers: {
+      ChromeHeadlessNoSandbox: {
+        base: 'ChromeHeadless',
+        flags: ['--no-sandbox']
+      }
+    },
+    browsers: ['ChromeHeadlessNoSandbox']
+  });
 };
-
-config.browsers = ['ChromeHeadlessNoSandbox'];
-
-exports.config = config;
