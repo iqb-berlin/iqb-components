@@ -1,9 +1,9 @@
 #include:
-#  - template: Code-Quality.gitlab-ci.yml
-#  - template: Security/SAST.gitlab-ci.yml
-#  - template: Security/Secret-Detection.gitlab-ci.yml
-#  - template: Dependency-Scanning.gitlab-ci.yml
-#  - template: Security/License-Scanning.gitlab-ci.yml
+  - template: Code-Quality.gitlab-ci.yml
+  - template: Security/SAST.gitlab-ci.yml
+  - template: Security/Secret-Detection.gitlab-ci.yml
+  - template: Dependency-Scanning.gitlab-ci.yml
+  - template: Security/License-Scanning.gitlab-ci.yml
 
 image: node:14.16-buster
 
@@ -11,7 +11,7 @@ image: node:14.16-buster
 stages:
   - build
   - test
-#  - check
+  - check
 
 cache:
   key: ${CI_COMMIT_REF_SLUG}
@@ -43,13 +43,13 @@ test-e2e:
     - npx webdriver-manager update --versions.chrome=`google-chrome --product-version`
     - npm run e2e:ci
 
-#code_quality:
-#  stage: check
-#sast:
-#  stage: check
-#.secret-analyzer:
-#  stage: check
-#dependency_scanning:
-#  stage: check
-#license_scanning:
-#  stage: check
+code_quality:
+  stage: check
+sast:
+  stage: check
+.secret-analyzer:
+  stage: check
+dependency_scanning:
+  stage: check
+license_scanning:
+  stage: check
