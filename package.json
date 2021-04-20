@@ -14,7 +14,7 @@
     "test:ci": "ng test --karma-config src/gitlab-ci.karma.conf.js",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "e2e:ci": "protractor e2e/gitlab-ci.protractor.conf.js",
+    "e2e:ci": "ng run iqb-components-e2e:ci",
     "build:lib": "./node_modules/.bin/ng-packagr -p src/app/components/package.json"
   },
   "private": false,

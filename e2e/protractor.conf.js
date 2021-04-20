@@ -12,8 +12,9 @@ exports.config = {
     browserName: 'chrome'
   },
   directConnect: true,
-  // with ng serve app run on port 4208, which is set up in angular.json.
-  // keep 4200 for use directly with protractor, like from IDE
+  // this is used, when protracor is started directly (like form IDE). it does expect the app running
+  // on default path (4207 as ste in angulart.json)
+  // when using ng e2e, the app runs on 4208 and is found there.
   baseUrl: 'http://localhost:4207/',
   framework: 'jasmine',
   jasmineNodeOpts: {

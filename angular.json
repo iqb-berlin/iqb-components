@@ -113,6 +113,20 @@
               "devServerTarget": "iqb-components:serve:production"
             }
           }
+        },
+        "ci": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "e2e/gitlab-ci.protractor.conf.js",
+            "devServerTarget": "iqb-components:serve",
+            "port": 4208,
+            "webdriverUpdate": false
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "iqb-components:serve:production"
+            }
+          }
         }
       }
     }
