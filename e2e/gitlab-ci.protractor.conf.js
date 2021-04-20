@@ -2,7 +2,7 @@ const { config } = require('./protractor.conf');
 
 config.capabilities = {
   browserName: 'chrome',
-  baseUrl: 'http://localhost:4207/',
+  baseUrl: 'http://localhost:4200/',
   chromeOptions: {
     args: [
       '--headless',
