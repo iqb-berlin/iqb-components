@@ -1,7 +1,8 @@
 const baseConfig = require('./karma.conf');
 
-module.exports = function (param) {
-  baseConfig(param).set({
+module.exports = function (config) {
+  baseConfig(config);
+  config.set({
     customLaunchers: {
       ChromeHeadlessNoSandbox: {
         base: 'ChromeHeadless',
