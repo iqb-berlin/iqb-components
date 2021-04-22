@@ -3,6 +3,10 @@
   "version": "3.1.0",
   "license": "MIT",
   "main": "iqb-components.module.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iqb-berlin/iqb-components.git"
+  },
   "ngPackage": {
     "lib": {
       "entryFile": "public_api.ts"
