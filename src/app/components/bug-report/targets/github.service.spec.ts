@@ -1,7 +1,7 @@
 import { fakeAsync, TestBed, tick } from '@angular/core/testing';
-import { GitHubService } from './github.service';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import {BugReportService } from '../bug-report.service';
+import { GitHubService } from './github.service';
+import { BugReportService } from '../bug-report.service';
 
 describe('GitHubService', () => {
   let service: GitHubService;
@@ -22,9 +22,12 @@ describe('GitHubService', () => {
   };
 
   class MockBugReportService {
+    // eslint-disable-next-line class-methods-use-this
     toText() {
-      return 'bug report as text'
+      return 'bug report as text';
     }
+
+    // eslint-disable-next-line class-methods-use-this
     applyDefaults(any) {
       return any;
     }
@@ -57,21 +60,21 @@ describe('GitHubService', () => {
     }).compileComponents();
 
     // Returns a service with the MockBackend so we can test with dummy responses
-    service = TestBed.get(GitHubService);
+    service = TestBed.inject(GitHubService);
     // Inject the http service and test controller for each test
-    httpTestingController = TestBed.get(HttpTestingController);
+    httpTestingController = TestBed.inject(HttpTestingController);
   });
 
   afterEach(() => {
-      // After every test, assert that there are no more pending requests.
-      httpTestingController.verify();
+    // After every test, assert that there are no more pending requests.
+    httpTestingController.verify();
   });
 
   it('should convert provided GitHub-URLs into targets in constructor', () => {
     expect(service.targets).toEqual({
-      an_url: {owner: 'my', name: 'repository'},
-      a_second_url: {owner: 'my', name: 'repository'},
-      a_third_url: {owner: 'my', name: 'repository'}
+      an_url: { owner: 'my', name: 'repository' },
+      a_second_url: { owner: 'my', name: 'repository' },
+      a_third_url: { owner: 'my', name: 'repository' }
     });
   });
 
@@ -83,7 +86,7 @@ describe('GitHubService', () => {
   it('should return success:true and url on successful publishIssue()', fakeAsync(() => {
     // Perform a request (this is fakeAsync to the response won't be called until tick() is called)
     service.publishIssue(bugReport, 'an_url')
-      .subscribe((result) => {
+      .subscribe(result => {
         expect(result).toEqual({
           uri: 'https://github.com/my/repository/issues/1',
           message: 'Bug reported to GitHub: https://github.com/my/repository/issues/1',
@@ -97,7 +100,7 @@ describe('GitHubService', () => {
     );
 
     // Assert that the request is a GET.
-    expect(req.request.method).toEqual("POST");
+    expect(req.request.method).toEqual('POST');
 
     // Respond with this data when called
     req.flush({
@@ -110,7 +113,7 @@ describe('GitHubService', () => {
 
   it('should return success:false on invalid targetKey', fakeAsync(() => {
     service.publishIssue(bugReport, 'an_invalid_url')
-      .subscribe((result) => {
+      .subscribe(result => {
         expect(result.success).toBeFalsy();
       });
     tick();
@@ -118,7 +121,7 @@ describe('GitHubService', () => {
 
   it('should return success:false on publish error', fakeAsync(() => {
     service.publishIssue(bugReport, 'an_url')
-      .subscribe((result) => {
+      .subscribe(result => {
         expect(result.success).toBeFalsy();
       });
 

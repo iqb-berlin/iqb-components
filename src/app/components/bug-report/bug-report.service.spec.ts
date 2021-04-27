@@ -20,7 +20,7 @@ describe('BugReportService', () => {
       ]
     }).compileComponents();
 
-    bugReportService = TestBed.get(BugReportService);
+    bugReportService = TestBed.inject(BugReportService);
   });
 
   it('create BugReport with now as default time', () => {

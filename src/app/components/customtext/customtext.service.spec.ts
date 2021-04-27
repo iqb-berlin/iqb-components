@@ -6,7 +6,7 @@ describe('CustomtextService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    customtextService = TestBed.get(CustomtextService);
+    customtextService = TestBed.inject(CustomtextService);
   });
 
   it('returns on subscribeCustomText for each key an observable, wich gets updated on every key-update', async () => {
