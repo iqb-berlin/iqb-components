@@ -118,6 +118,6 @@ try:
     new_version = _increment_version(old_version)
     _update_version_in_file(new_version)
     _update_version_in_additional_files(new_version)
-     _git_tag()
+    _git_tag()
 except subprocess.SubprocessError:
     _undo_version_update_in_files()
