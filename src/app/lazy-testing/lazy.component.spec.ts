@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { ObserversModule } from '@angular/cdk/observers';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -8,14 +8,14 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatRippleModule } from '@angular/material/core';
-import { IqbComponentsModule } from '../components/iqb-components.module';
+import { IqbComponentsModule } from '../components';
 import { LazyComponent } from './lazy.component';
 
 describe('LazyComponent', () => {
   let component: LazyComponent;
   let fixture: ComponentFixture<LazyComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         ObserversModule,
