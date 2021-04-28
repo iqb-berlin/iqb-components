@@ -55,7 +55,7 @@ import { BugReportDialogComponent } from './bug-report/dialog/bug-report-dialog.
 })
 export class IqbComponentsModule {
   // if config is needed: static forRoot(config: IqbComponentsConfig): ModuleWithProviders {
-  static forRoot(): ModuleWithProviders {
+  static forRoot(): ModuleWithProviders<IqbComponentsModule> {
     return {
       ngModule: IqbComponentsModule,
       providers: [
@@ -64,7 +64,7 @@ export class IqbComponentsModule {
     };
   }
 
-  static forChild(): ModuleWithProviders {
+  static forChild(): ModuleWithProviders<IqbComponentsModule> {
     return {
       ngModule: IqbComponentsModule
     };
