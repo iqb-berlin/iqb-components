@@ -5,13 +5,13 @@ publish-lib:
 	npm publish dist
 
 tag-major:
-	make publish-lib
 	scripts/new_version.py major
+	make publish-lib
 
 tag-minor:
-	make publish-lib
 	scripts/new_version.py minor
+	make publish-lib
 
 tag-patch:
-	make publish-lib
 	scripts/new_version.py patch
+	make publish-lib
