@@ -29,7 +29,7 @@ import subprocess
 
 VERSION_FILE = 'package.json'
 VERSION_REGEX = '(?<=version": ")(.*)(?=")'
-ADDITIONAL_FILES_TO_COMMIT = ['src/app/components/package.json']
+ADDITIONAL_VERSION_FILES = ['src/app/components/package.json']
 
 
 def _check_prerequisites():
@@ -57,9 +57,20 @@ def _parse_version() -> str:
 
 
 def _update_version_in_file(new_version):
+    print(f"Updating Version in {VERSION_FILE}")
     new_file_content = pattern.sub(new_version, file_content)
     with open(VERSION_FILE, 'w') as f:
         f.write(new_file_content)
+
+
+def _update_version_in_additional_files(new_version):
+    for file in ADDITIONAL_VERSION_FILES:
+        print(f"Updating Version in {file}")
+        with open(file, 'r') as f:
+            additional_file_content = f.read()
+        with open(file, 'w') as f:
+            new_additional_file_content = pattern.sub(new_version, additional_file_content)
+            f.write(new_additional_file_content)
 
 
 def _increment_version(old_version):
@@ -83,7 +94,7 @@ def _run_tests():
 def _git_tag():
     print(f"Creating git tag for version {new_version}")
     subprocess.run(f"git add {VERSION_FILE}", shell=True, check=True)
-    for file in ADDITIONAL_FILES_TO_COMMIT:
+    for file in ADDITIONAL_VERSION_FILES:
         subprocess.run(f"git add {file}", shell=True, check=True)
     subprocess.run(f"git commit -m \"Update version to {new_version}\"", shell=True, check=True)
     subprocess.run("git push origin master", shell=True, check=True)
@@ -92,7 +103,7 @@ def _git_tag():
 
 def _undo_version_update_in_files():
     subprocess.run(f"git checkout {VERSION_FILE}", shell=True, check=True)
-    for file in ADDITIONAL_FILES_TO_COMMIT:
+    for file in ADDITIONAL_VERSION_FILES:
         subprocess.run(f"git checkout {file}", shell=True, check=True)
 
 
@@ -106,6 +117,7 @@ try:
     _run_tests()
     new_version = _increment_version(old_version)
     _update_version_in_file(new_version)
-    _git_tag()
+    _update_version_in_additional_files(new_version)
+     _git_tag()
 except subprocess.SubprocessError:
     _undo_version_update_in_files()
