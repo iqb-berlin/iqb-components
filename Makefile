@@ -1,5 +1,5 @@
 publish-lib:
-	npm build:lib
+	npm run build:lib
 	cp README.md dist
 	npm login
 	npm publish dist
