@@ -17,8 +17,7 @@ import { BugReport } from './components/bug-report/bug-report.interfaces';
   templateUrl: './showcase.component.html',
   styleUrls: ['./showcase.component.scss']
 })
-
-export class Showcase {
+export class ShowcaseComponent {
   constructor(
     public dialog: MatDialog,
     private scs: ShowcaseService,

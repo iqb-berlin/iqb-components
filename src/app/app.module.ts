@@ -15,16 +15,15 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
 
-import { Showcase } from './showcase.component';
-import { IqbComponentsModule } from './components/iqb-components.module';
+import { IqbComponentsModule } from './components';
 import { LazyTestingModule } from './lazy-testing/lazy-testing.module';
 import { ShowcaseService } from './showcase.service';
 import { ShowcaseRoutingModule } from './showcase-routing.module';
 import { AppComponent } from './app.component';
+import { ShowcaseModule } from './showcase.module';
 
 @NgModule({
   declarations: [
-    Showcase,
     AppComponent
   ],
   imports: [
@@ -44,7 +43,8 @@ import { AppComponent } from './app.component';
     HttpClientModule,
     FlexLayoutModule,
     ShowcaseRoutingModule,
-    LazyTestingModule
+    LazyTestingModule,
+    ShowcaseModule
   ],
   providers: [
     ShowcaseService,

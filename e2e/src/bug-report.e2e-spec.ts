@@ -44,7 +44,7 @@ describe('Bug Report', () => {
     await browser.wait(EC.stalenessOf(dialogContainer));
 
     await expect(containerCard.element(by.css('.result')).getText())
-      .toEqual('Result: Error when reporting issue to GitHub (iqb-berlin/non-existing-repo).');
+      .toEqual('Error when reporting issue to GitHub (iqb-berlin/non-existing-repo).');
 
     // at this point we resign from testing the success case since http mockModule for angular
     // is not supported

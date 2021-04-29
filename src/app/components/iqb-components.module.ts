@@ -17,6 +17,7 @@ import { CustomTextData, CustomTextDefs } from './customtext/customtext.interfac
 import { GitHubService } from './bug-report/targets/github.service';
 import { BugReportService } from './bug-report/bug-report.service';
 import { BugReportDialogComponent } from './bug-report/dialog/bug-report-dialog.component';
+import { AlertComponent } from './alert/alert.component';
 
 @NgModule({
   imports: [
@@ -39,14 +40,16 @@ import { BugReportDialogComponent } from './bug-report/dialog/bug-report-dialog.
     MessageDialogComponent,
     BugReportDialogComponent,
     BytesPipe,
-    CustomtextPipe
+    CustomtextPipe,
+    AlertComponent
   ],
   exports: [
     ConfirmDialogComponent,
     MessageDialogComponent,
     BugReportDialogComponent,
     BytesPipe,
-    CustomtextPipe
+    CustomtextPipe,
+    AlertComponent
   ],
   providers: [
     GitHubService,
@@ -86,5 +89,6 @@ export {
   GitHubService,
   MessageDialogData,
   MessageType,
-  ConfirmDialogData
+  ConfirmDialogData,
+  AlertComponent
 }; // IqbComponentsConfig

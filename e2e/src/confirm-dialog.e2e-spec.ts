@@ -23,7 +23,7 @@ describe('Confirm Dialog', () => {
     await dialogContainer.all(by.tagName('button')).last().click();
     await browser.wait(EC.stalenessOf(dialogContainer));
 
-    await expect(containerCard.element(by.css('.result')).getText()).toBe('Result: false');
+    await expect(containerCard.element(by.css('.result')).getText()).toBe('false');
 
     await containerCard.element(by.tagName('mat-checkbox')).click();
     await ShowcasePage.typeIn(containerCard, 'title', '');
@@ -37,7 +37,7 @@ describe('Confirm Dialog', () => {
     await dialogContainer.all(by.tagName('button')).first().click();
     await browser.wait(EC.stalenessOf(dialogContainer));
 
-    await expect(containerCard.element(by.css('.result')).getText()).toBe('Result: true');
+    await expect(containerCard.element(by.css('.result')).getText()).toBe('true');
   });
 
   afterEach(async () => {
