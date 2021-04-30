@@ -8,7 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { LazyComponent } from './lazy.component';
-import { IqbComponentsModule } from '../components';
+import { IqbComponentsModule } from '../../components';
 import { LazyTestingRoutingModule } from './lazy-testing-routing.module';
 
 @NgModule({

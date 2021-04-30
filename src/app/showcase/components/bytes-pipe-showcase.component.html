@@ -1,0 +1,28 @@
+<mat-card id="bytesPipe">
+  <mat-card-title>BytesPipe</mat-card-title>
+  <mat-card-subtitle>A pipe for human readable file sizes</mat-card-subtitle>
+
+  <mat-card-content>
+    <p>
+      This is a simple way to present a number of bytes nicely.
+    </p>
+    <p>
+      Use in templates <code ngNonBindable>{{value | bytes}}</code>, you'll get (as examples):
+    </p>
+    <ul>
+      <li>for value 1536 > '1.5 KB'</li>
+      <li>for value 11000000000000 > '10.0 TB'</li>
+    </ul>
+    <h3>Try it out</h3>
+    <form>
+      <mat-form-field appearance="outline">
+        <mat-label>Test Values</mat-label>
+        <input matInput [(ngModel)]="pipeBytesValue" name="pipetestvalues">
+      </mat-form-field>
+    </form>
+  </mat-card-content>
+
+  <mat-card-footer class="result">
+    <ul><li *ngFor="let value of applyPipeBytes()">{{value | bytes}}</li></ul>
+  </mat-card-footer>
+</mat-card>

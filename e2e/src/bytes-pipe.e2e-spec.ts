@@ -1,7 +1,8 @@
 import {
-  browser, by, element, logging
+  by, element
 } from 'protractor';
-import ShowcasePage from './showcase.po';
+import { ShowcasePage } from './showcase.po';
+import { BrowserConsole } from './browser-console.po';
 
 describe('Bytes Pipe', () => {
   it('should calculate human readable bytes successfully', async () => {
@@ -18,11 +19,5 @@ describe('Bytes Pipe', () => {
     await expect(resultItems[3].getText()).toBe('10.0 TB');
   });
 
-  afterEach(async () => {
-    // Assert that there are no errors emitted from the browser
-    const logs = await browser.manage().logs().get(logging.Type.BROWSER);
-    expect(logs).not.toContain(jasmine.objectContaining({
-      level: logging.Level.SEVERE
-    } as logging.Entry));
-  });
+  afterEach(BrowserConsole.assertNoLog);
 });

@@ -1,7 +1,8 @@
 import {
-  browser, by, element, logging, ExpectedConditions as EC
+  browser, by, element, ExpectedConditions as EC
 } from 'protractor';
-import ShowcasePage from './showcase.po';
+import { ShowcasePage } from './showcase.po';
+import { BrowserConsole } from './browser-console.po';
 
 describe('Message Dialog', () => {
   it('should pop up and set buttons and labels according to setup.', async () => {
@@ -33,11 +34,5 @@ describe('Message Dialog', () => {
     await expect(dialogContainer.element(by.tagName('mat-icon')).getText()).toContain('error');
   });
 
-  afterEach(async () => {
-    // Assert that there are no errors emitted from the browser
-    const logs = await browser.manage().logs().get(logging.Type.BROWSER);
-    expect(logs).not.toContain(jasmine.objectContaining({
-      level: logging.Level.SEVERE
-    } as logging.Entry));
-  });
+  afterEach(BrowserConsole.assertNoLog);
 });

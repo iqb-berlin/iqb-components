@@ -1,7 +1,8 @@
 import {
-  browser, by, element, ElementFinder, logging
+  by, element, ElementFinder
 } from 'protractor';
-import ShowcasePage from './showcase.po';
+import { ShowcasePage } from './showcase.po';
+import { BrowserConsole } from './browser-console.po';
 
 describe('Alert', () => {
   let containerCard: ElementFinder;
@@ -10,7 +11,7 @@ describe('Alert', () => {
   beforeEach(async () => {
     await ShowcasePage.navigateTo();
     containerCard = element(by.id('alert'));
-    resultItem = containerCard.element(by.css('alert span'));
+    resultItem = containerCard.element(by.css('alert > div > div > span'));
   });
 
   it('should use the the basic text as default for customtext-key if given', async () => {
@@ -42,11 +43,5 @@ describe('Alert', () => {
       .toBe('this is <span class="highlight">highlighted</span>');
   });
 
-  afterEach(async () => {
-    // Assert that there are no errors emitted from the browser
-    const logs = await browser.manage().logs().get(logging.Type.BROWSER);
-    expect(logs).not.toContain(jasmine.objectContaining({
-      level: logging.Level.SEVERE
-    } as logging.Entry));
-  });
+  afterEach(BrowserConsole.assertNoLog);
 });

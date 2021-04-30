@@ -1,7 +1,8 @@
 import {
-  browser, by, element, logging, ExpectedConditions as EC
+  browser, by, element, ExpectedConditions as EC
 } from 'protractor';
-import ShowcasePage from './showcase.po';
+import { ShowcasePage } from './showcase.po';
+import { BrowserConsole } from './browser-console.po';
 
 describe('Bug Report', () => {
   const containerCard = element(by.id('bugReportDialog'));
@@ -46,6 +47,8 @@ describe('Bug Report', () => {
     await expect(containerCard.element(by.css('.result')).getText())
       .toEqual('Error when reporting issue to GitHub (iqb-berlin/non-existing-repo).');
 
+    await BrowserConsole.getLog(); // clear error from console
+
     // at this point we resign from testing the success case since http mockModule for angular
     // is not supported
     // https://github.com/angular/protractor/blob/88a1b3a30386771bcb84eb6b79d19fa256589f2c/lib/browser.ts#L971-L972
@@ -53,10 +56,5 @@ describe('Bug Report', () => {
     // much overhead for a single call
   });
 
-  afterEach(async () => {
-    const logs = await browser.manage().logs().get(logging.Type.BROWSER);
-    // 2 errors are expected because it can't find the dummy github repo
-    // and subsequently can't make the call
-    expect(logs.length).not.toBeGreaterThan(2);
-  });
+  afterEach(BrowserConsole.assertNoLog);
 });

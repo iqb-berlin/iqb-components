@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { ErrorHandler, ServerError } from './components/iqb-components.module';
+import { ErrorHandler, ServerError } from '../components';
 
 @Injectable({
   providedIn: 'root'

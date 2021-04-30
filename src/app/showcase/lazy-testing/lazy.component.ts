@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { CustomtextService } from '../components/customtext/customtext.service';
+import { CustomtextService } from '../../components';
 
 @Component({
   templateUrl: './lazy.component.html',

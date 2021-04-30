@@ -3,7 +3,7 @@ import {
 } from 'protractor';
 import { protractor } from 'protractor/built/ptor';
 
-export default class ShowcasePage {
+export class ShowcasePage {
   static navigateTo(): Promise<void> {
     return browser.get(browser.baseUrl) as Promise<any>;
   }

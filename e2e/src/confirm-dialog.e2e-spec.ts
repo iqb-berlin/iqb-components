@@ -1,7 +1,8 @@
 import {
-  browser, by, element, logging, ExpectedConditions as EC
+  browser, by, element, ExpectedConditions as EC
 } from 'protractor';
-import ShowcasePage from './showcase.po';
+import { ShowcasePage } from './showcase.po';
+import { BrowserConsole } from './browser-console.po';
 
 describe('Confirm Dialog', () => {
   it('should pop up and set buttons and labels according to setup.', async () => {
@@ -40,11 +41,5 @@ describe('Confirm Dialog', () => {
     await expect(containerCard.element(by.css('.result')).getText()).toBe('true');
   });
 
-  afterEach(async () => {
-    // Assert that there are no errors emitted from the browser
-    const logs = await browser.manage().logs().get(logging.Type.BROWSER);
-    expect(logs).not.toContain(jasmine.objectContaining({
-      level: logging.Level.SEVERE
-    } as logging.Entry));
-  });
+  afterEach(BrowserConsole.assertNoLog);
 });

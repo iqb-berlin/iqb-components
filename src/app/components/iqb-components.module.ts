@@ -7,6 +7,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { HttpClientModule } from '@angular/common/http';
 import { ConfirmDialogComponent, ConfirmDialogData } from './dialogs/confirm/confirm-dialog.component';
 import { MessageDialogComponent, MessageDialogData, MessageType } from './dialogs/message/message-dialog.component';
 import { BytesPipe } from './pipes/bytes.pipe';
@@ -28,7 +29,8 @@ import { AlertComponent } from './alert/alert.component';
     MatFormFieldModule,
     MatExpansionModule,
     FormsModule,
-    MatInputModule
+    MatInputModule,
+    HttpClientModule
   ],
   entryComponents: [
     ConfirmDialogComponent,

@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { CustomtextService } from '../components';
+import { CustomtextService } from '../../components';
 
 @Component({
-  templateUrl: './alertShowcase.component.html',
+  templateUrl: './alert-showcase.component.html',
   styleUrls: ['../showcase.component.scss'],
   selector: 'showcase-alert'
 })

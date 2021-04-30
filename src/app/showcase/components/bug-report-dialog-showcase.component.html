@@ -1,0 +1,165 @@
+<mat-card id="bugReportDialog">
+  <mat-card-title>BugReport &amp; BugReportDialog</mat-card-title>
+  <mat-card-subtitle>A set of services to easily create BugReports on GitHub (or, maybe in the future other targets).</mat-card-subtitle>
+
+  <mat-card-content>
+    <h4>Prerequisites:</h4>
+    <p>The BugReport-Component relies on some globally provided data:</p>
+    <p>You should store this data in your <code>environment.ts</code> and provide in <code>main.ts</code>:</p>
+    <pre>
+      <code ngNonBindable>
+        &#123;
+          provide: "APP_VERSION",
+          useValue: # program version of your app
+        },
+        &#123;
+          provide: "APP_NAME",
+          useValue: # name of your app
+        },
+        &#123;
+          provide: "GITHUB_DATA",
+          useValue: &#123;
+            token: # gitHub-Authtoken
+            user: # gitHub-Username,
+            repositoryUrls: &#123;
+                'default': # url of your repository. Example: "https://github.com/iqb-berlin/non-existing-repo"
+            },
+          }
+        }
+      </code>
+    </pre>
+    <p>The <strong>GitHub-Token</strong> needs the following rights:</p>
+    <ul>
+      <li>repo/public_repo</li>
+      <li>write:discussion</li>
+    </ul>
+    <p>You can create it here: <a href="https://github.com/settings">https://github.com/settings</a>.</p>
+    <p>It's possible to provide more than the default-repository. The use case is if you have one repository for the frontend
+      to report JS-bugs to and one for the backend to report Server-Errors to.</p>
+    <h4>Ho to use</h4>
+    <p>We recommend using this component on the error-page of your app.</p>
+    <h5>Report a bug with the BugReportDialog</h5>
+    <p>You can let the user insert some stuff and confirm report before reporting.</p>
+    <pre lang="lang-ts">
+      <code ngNonBindable>
+        import &#123; BugReportDialogComponent, GitHubService } from 'iqb-components';
+        ...
+
+        const dialogRef = this.dialog.open(BugReportDialogComponent, &#123;
+          data: &#123;
+            report: BugReport,
+            targetService: this.gitHubService,
+            targetKey: String,
+            config: BugReportDialogConfig
+          },
+        });
+
+        dialogRef.afterClosed().subscribe(bugReportResult =&gt; &#123;
+
+          ...
+        });
+      </code>
+    </pre>
+    <p>As <code>MAT_DIALOG_DATA</code> you have to provide an object containing up to four elements.
+      It has to contain at least:</p>
+    <ul>
+      <li>the <code>BugReportTargetService</code> - only the <code>GitHubService</code> is available at the moment.</li>
+    </ul>
+    <p>You can also provide:</p>
+    <ul>
+      <li>a <code>BugReportDialogConfig</code> to change some parts of the dialog's appearance,</li>
+      <li>a <code>BugReport</code> as basis,</li>
+      <li>a string called <code>BugReportTargetKey</code>.</li>
+    </ul>
+    <p>With <strong>BugReportConfig</strong> you can hide some fields in the Dialog. An example use case is: In your app, you have a login
+      and by this you already have a username and email for your BugReport. So you provide both in the initial BugReport hide
+      those fields from the dialog and hide the corresponding fields with the config.</p>
+    <p>The <strong>BugReportTargetKey</strong> must be the key of one of the repositories in <code>GITHUB_DATA</code>. If you don't have more than one
+      repository as target, and the key is, as in the example above <code>default</code>, you don't have to worry about that.</p>
+    <p>The <strong>BugReport</strong>-interface holds several optional fields of information which could be useful for the person receiving
+      the BugReport. No fields are required, which ones you use depend on your implementation and your needs. Most fields
+      like <code>devInfo</code>, <code>date</code>, <code>url</code> get filled automatically if you leave them out or empty. only put those fields in the
+      initial BugReport in <code>MAT_DIALOG_DATA</code>, that you neither want the user to put in nor to get automatically.</p>
+    <p>There is also a function <code>createFromJsError</code> in <code>BugReportService</code> to create a BugReport about a caught Javascript-Error.</p>
+    <p>See <code>bug-report.interfaces.ts</code> for details on the interfaces.</p>
+    <h5>Directly report a Bug without confirmation</h5>
+    <p>You can also directly report a Bug without using the Dialog:</p>
+    <pre lang="lang-ts">
+      <code ngNonBindable>
+        import &#123; GitHubService } from 'iqb-components';
+
+        ...
+
+        this.gitHubService.publishIssue(bugReport, targetKey)
+            .subscribe((bugReportResult: BugReportResult) =&gt; &#123;
+              ...
+            });
+      </code>
+    </pre>
+
+    <h3>Try it out</h3>
+
+    <form>
+
+      <p>Target</p>
+      <mat-form-field appearance="outline">
+        <mat-label>target</mat-label>
+        <mat-select [(value)]="bugReportTargetKey" id="bugReportTargetKey">
+          <mat-option *ngFor="let item of gitHubService.targets | keyvalue" [value]="item.key">
+            {{item.key}} ({{item.value.owner}}/{{item.value.name}})
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <p>BugReport-Data</p>
+      <mat-form-field appearance="outline">
+        <mat-label>Error-Title</mat-label>
+        <input matInput [(ngModel)]="bugReportDialogReport.title" name="title">
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Error-Code</mat-label>
+        <input matInput [(ngModel)]="bugReportDialogReport.devInfo" name="devInfo">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Error-Id</mat-label>
+        <input matInput [(ngModel)]="bugReportDialogReport.errorId" name="errorId">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Reporter-Name</mat-label>
+        <input matInput placeholder="" [(ngModel)]="bugReportDialogReport.reporterName" name="reporterName">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Reporter-Email</mat-label>
+        <input matInput [(ngModel)]="bugReportDialogReport.reporterEmail" name="reporterEmail">
+      </mat-form-field>
+
+
+      <p>Dialog-Config</p>
+
+      Hide fields:<br>
+      <label><input type="checkbox" [(ngModel)]="bugReportDialogConfigHideFields.title" name="hideTitle">title</label>
+      <label><input type="checkbox" [(ngModel)]="bugReportDialogConfigHideFields.comment" name="hideComment">comment</label>
+      <label><input type="checkbox" [(ngModel)]="bugReportDialogConfigHideFields.reporterName" name="hideReporterName">reporterName</label>
+      <label><input type="checkbox" [(ngModel)]="bugReportDialogConfigHideFields.reporterEmail" name="hideReporterEmail">reporterEmail</label>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Comment-Template</mat-label>
+        <textarea matInput placeholder="" [(ngModel)]="bugReportDialogCommentTemplate" name="commentTemplate"></textarea>
+      </mat-form-field>
+    </form>
+  </mat-card-content>
+
+  <mat-card-actions>
+    <button mat-raised-button (click)="convertJSErrorToBugReportDialogData()">Create report for JS error</button>
+    <button mat-raised-button color="primary" (click)="openBugReportDialog()" name="openDialog">Open Report Dialog</button>
+  </mat-card-actions>
+
+
+  <mat-card-footer class="result">
+    {{bugReportDialogResult}}
+  </mat-card-footer>
+
+</mat-card>

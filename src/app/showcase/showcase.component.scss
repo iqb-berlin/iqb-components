@@ -1,0 +1,52 @@
+mat-sidenav-content {
+  background: rgba(64,144,230,1);
+  background: linear-gradient(to right, rgba(64,144,230,1) 0%, rgba(98,214,145,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4090e6', endColorstr='#62d691', GradientType=1 );
+}
+
+mat-toolbar {
+  position: sticky;
+  position: -webkit-sticky;
+  top: 0;
+  z-index: 10;
+}
+
+mat-sidenav-container {
+  position: relative;
+  height: 100%;
+  display: block;
+  transform: inherit;
+}
+
+mat-sidenav {
+  width: 20%;
+  position: fixed;
+  margin-top: 70px;
+}
+
+
+.item {
+  max-width: 800px;
+  margin: 0.5em;
+  display: block;
+}
+
+mat-card-content {
+  background: white;
+}
+
+mat-card-footer {
+  border-top: 1px solid silver;
+  padding: 16px;
+}
+
+mat-card-footer:before {
+  content: "Result";
+  color: rgba(0, 0, 0, 0.54);
+  display: block;
+  font-size: 14px;
+}
+
+mat-form-field {
+  width: 100%;
+}

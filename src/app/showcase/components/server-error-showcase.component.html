@@ -1,0 +1,42 @@
+<mat-card id="serverError">
+  <mat-card-title>ServerError/ErrorHandler</mat-card-title>
+  <mat-card-subtitle>A convenient way to catch http-Errors</mat-card-subtitle>
+
+  <mat-card-content>
+    <h3>Try it out</h3>
+    <form>
+      <mat-form-field>
+        <label>
+          <input matInput placeholder="url" [(ngModel)]="httpErrorData.url" name="url">
+        </label>
+      </mat-form-field>
+      <br>
+
+      <mat-form-field>
+        <label>
+          <input matInput placeholder="parameterName" [(ngModel)]="httpErrorData.parameterName" name="pName">
+        </label>
+      </mat-form-field>
+      <br>
+
+      <mat-form-field>
+        <label>
+          <input matInput placeholder="parameterValue" [(ngModel)]="httpErrorData.parameterValue" name="pValue">
+        </label>
+      </mat-form-field>
+
+    </form>
+  </mat-card-content>
+
+  <mat-card-actions>
+    <button color="primary" mat-raised-button (click)="demoHttpError()">Execute</button>
+  </mat-card-actions>
+
+  <mat-card-footer class="result">
+    <ul>
+      <li>errorCode: {{httpResponse.errorCode}}</li>
+      <li>messageShort: {{httpResponse.messageShort}}</li>
+      <li>messageLong: {{httpResponse.messageLong}}</li>
+    </ul>
+  </mat-card-footer>
+</mat-card>

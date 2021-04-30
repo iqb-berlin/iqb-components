@@ -1,0 +1,42 @@
+<mat-card id="messageDialog">
+  <mat-card-title>MessageDialog</mat-card-title>
+  <mat-card-subtitle>A simple message dialogue.</mat-card-subtitle>
+
+  <mat-card-content>
+    <h3>Try it out</h3>
+    <form>
+      <mat-form-field appearance="outline">
+        <mat-label>MessageType</mat-label>
+        <mat-select [(ngModel)]="messageDialogData.type" name="type">
+          <mat-option [value]="0">error</mat-option>
+          <mat-option [value]="1">warning</mat-option>
+          <mat-option [value]="2">info</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>title</mat-label>
+        <input matInput [(ngModel)]="messageDialogData.title" name="title">
+      </mat-form-field>
+      <br>
+      <mat-form-field appearance="outline">
+        <mat-label>content</mat-label>
+        <input matInput [(ngModel)]="messageDialogData.content" name="content">
+      </mat-form-field>
+      <br>
+      <mat-form-field appearance="outline">
+        <mat-label>closebuttonlabel</mat-label>
+        <input matInput placeholder="" [(ngModel)]="messageDialogData.closebuttonlabel" name="closebuttonlabel">
+      </mat-form-field>
+    </form>
+  </mat-card-content>
+
+  <mat-card-actions>
+    <button mat-raised-button color="primary" (click)="openMessageDialog()" name="openDialog">Open Dialogue</button>
+  </mat-card-actions>
+
+  <mat-card-footer class="result">
+    {{messageDialogResult}}
+  </mat-card-footer>
+
+</mat-card>

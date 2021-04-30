@@ -1,0 +1,32 @@
+<mat-card id="confirmDialog">
+  <mat-card-title>ConfirmDialog</mat-card-title>
+  <mat-card-subtitle>A simple confirmation dialogue.</mat-card-subtitle>
+
+  <mat-card-content>
+    <h3>Try it out</h3>
+    <form>
+      <mat-form-field appearance="outline">
+        <mat-label>title</mat-label>
+        <input matInput [(ngModel)]="confirmDialogData.title" name="title">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>content</mat-label>
+        <input matInput [(ngModel)]="confirmDialogData.content" name="content">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>confirmbuttonlabel</mat-label>
+        <input matInput [(ngModel)]="confirmDialogData.confirmbuttonlabel" name="confirmbuttonlabel">
+      </mat-form-field>
+
+      <mat-checkbox [(ngModel)]="confirmDialogData.showcancel" name="showcancel">showcancel</mat-checkbox>
+    </form>
+  </mat-card-content>
+
+  <mat-card-actions>
+    <button mat-raised-button color="primary" (click)="openConfirmDialog()" name="openDialog">Open Dialog</button>
+  </mat-card-actions>
+
+  <mat-card-footer class="result">{{confirmDialogResult}}</mat-card-footer>
+</mat-card>

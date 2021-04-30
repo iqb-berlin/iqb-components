@@ -8,7 +8,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatRippleModule } from '@angular/material/core';
-import { IqbComponentsModule } from '../components';
+import { IqbComponentsModule } from '../../components';
 import { LazyComponent } from './lazy.component';
 
 describe('LazyComponent', () => {
