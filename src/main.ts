@@ -3,7 +3,7 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
 import { AppModule } from './app/app.module';
 import { environment } from './environments/environment';
-import { name, version, repository } from '../package.json';
+import packageJson from '../package.json';
 
 if (environment.production) {
   enableProdMode();
@@ -12,11 +12,11 @@ if (environment.production) {
 platformBrowserDynamic([
   {
     provide: 'APP_VERSION',
-    useValue: version
+    useValue: packageJson.version
   },
   {
     provide: 'APP_NAME',
-    useValue: name
+    useValue: packageJson.name
   },
   {
     provide: 'GITHUB_DATA',
@@ -27,4 +27,4 @@ platformBrowserDynamic([
     }
   }
 ]).bootstrapModule(AppModule)
-  .catch((err) => console.error(err));
+  .catch(err => console.error(err));
