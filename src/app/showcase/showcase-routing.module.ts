@@ -5,7 +5,7 @@ import { ShowcaseComponent } from './showcase.component';
 const routes: Routes = [
   { path: '', component: ShowcaseComponent, pathMatch: 'full' },
   { path: 'start', component: ShowcaseComponent },
-  { path: 'lazy', loadChildren: './lazy-testing/lazy-testing.module#LazyTestingModule' }
+  { path: 'lazy', loadChildren: () => import('./lazy-testing/lazy-testing.module').then(m => m.LazyTestingModule) }
 ];
 
 @NgModule({
