@@ -58,7 +58,7 @@ ng test
 ###### Troubleshooting
 * If no browser could be caught run
 ```
-export CHROME_BIN=/bin/chromium #this is an example. you have to fill CHROME_BIN
+export CHROME_BIN=/usr/bin/chromium #this is an example. you have to fill CHROME_BIN according to your sysrem
 ```
 
 #### Default Ports
@@ -68,8 +68,8 @@ export CHROME_BIN=/bin/chromium #this is an example. you have to fill CHROME_BIN
 
 #### Minimum Requirements
 
-* node v8
-* chrome (tests are set up for testing with Chrome but could be done with firefox as well)
+* node 14
+* Google-Chrome or Chromium (for the tests)
 
 ### How to include a new component
 
