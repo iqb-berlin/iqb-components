@@ -15,7 +15,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e --webdriver-update=false",
     "e2e:ci": "ng run iqb-components-e2e:ci",
-    "build:lib": "./node_modules/.bin/ng-packagr -p src/app/components/package.json"
+    "build:lib": "npx ng-packagr -p src/app/components/package.json"
   },
   "private": false,
   "eslintConfig": {
