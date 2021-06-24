@@ -28,7 +28,7 @@ describe('CustomtextService', () => {
       later_subscribed_key: 'value-2-init'
     });
 
-    await new Promise(resolve => setTimeout(() => {
+    await new Promise<void>(resolve => setTimeout(() => {
       customtextService.addCustomTexts({
         key: 'value-1-1st-update',
         later_subscribed_key: 'value-2-1st-update',
