@@ -30,6 +30,7 @@ import subprocess
 VERSION_FILE = 'package.json'
 VERSION_REGEX = '(?<=version": ")(.*)(?=")'
 ADDITIONAL_VERSION_FILES = ['src/app/components/package.json']
+ADDITIONAL_FILES_TO_COMMIT = ['package-lock.json', 'docs/*']
 
 
 def _check_prerequisites():
@@ -96,6 +97,8 @@ def _git_tag():
     subprocess.run(f"git add {VERSION_FILE}", shell=True, check=True)
     for file in ADDITIONAL_VERSION_FILES:
         subprocess.run(f"git add {file}", shell=True, check=True)
+    for file in ADDITIONAL_FILES_TO_COMMIT:
+        subprocess.run(f"git add {file}", shell=True, check=True)
     subprocess.run(f"git commit -m \"Update version to {new_version}\"", shell=True, check=True)
     subprocess.run("git push origin master", shell=True, check=True)
     subprocess.run(f"git tag {new_version}", shell=True, check=True)
@@ -104,6 +107,8 @@ def _git_tag():
 def _undo_version_update_in_files():
     subprocess.run(f"git checkout {VERSION_FILE}", shell=True, check=True)
     for file in ADDITIONAL_VERSION_FILES:
+        subprocess.run(f"git checkout {file}", shell=True, check=True)
+    for file in ADDITIONAL_FILES_TO_COMMIT:
         subprocess.run(f"git checkout {file}", shell=True, check=True)
 
 
