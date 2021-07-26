@@ -4,6 +4,18 @@ import {
 import { ShowcasePage } from './showcase.po';
 import { BrowserConsole } from './browser-console.po';
 
+// temporary to debug CI-only test-failure
+const fs = require('fs');
+function screenShot(filename) {
+  browser.takeScreenshot().then(function (png) {
+    const stream = fs.createWriteStream(filename + '.png');
+    stream.write(new Buffer(png, 'base64'));
+    stream.end();
+    console.log(__dirname + filename + '.png');
+  });
+}
+// --
+
 describe('Bug Report', () => {
   const containerCard = element(by.id('bugReportDialog'));
 
@@ -24,6 +36,7 @@ describe('Bug Report', () => {
     await expect(dialogContainer.element(by.name('comment')).isPresent()).toBeTruthy();
     await expect(dialogContainer.element(by.name('reporterName')).isPresent()).toBeTruthy();
     await expect(dialogContainer.element(by.name('reporterEmail')).isPresent()).toBeFalsy();
+    screenShot('abc-ghi-mno.png');
     await expect(dialogContainer.element(by.name('title')).getAttribute('value')).toEqual('abc');
     await expect(dialogContainer.element(by.name('reporterName')).getAttribute('value')).toEqual('ghi');
     await expect(dialogContainer.element(by.name('comment')).getAttribute('value')).toEqual('mno');
